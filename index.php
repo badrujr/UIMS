@@ -204,7 +204,6 @@ class UserInfo{
             <h4><img src="admin/assets/img/tan.gif" style="height: 30px; width: 50px;" class="rounded-circle">University Infromation Management System (UIMS)</h4>
             <div class="page-description"> 
               <p style="font-size: 18px; color: maroon; font-family: Comic Sans MS;">This Search Engine Will Help You To Get More Information About The Particular University/Institute/College...</p>
-              <?php echo "".$only_country[1]." ".substr($only_country[2],0,4);?>
                <div class="sidebar-user-details">
               <div class="user-name"><img src='admin/assets/img/4042.gif' style='height: 110px; width: 100px;' class="user-img-radious-style"></div>
             </div>
