@@ -4,12 +4,12 @@ session_start();
 require_once('dbconnection.php');
 require_once('UserInfo.php');
 
-$chuo_id = base64_decode($_GET['xxx']);
-$sel  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$chuo_id = base64_decode($_GET['xx']);
+$sel  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name ='$chuo_id'";
 $run = mysql_query($sel);
 $x = 0;
 
-$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name ='$chuo_id'";
 $runfeed = mysql_query($selfeed);
 $xfeed = 0;
 
@@ -40,14 +40,15 @@ $hide = base64_encode($uni_name);
   <!-- General CSS Files -->
   <link rel="stylesheet" href="admin/assets/css/app.min.css">
   <!-- Template CSS -->
+   <link rel="stylesheet" href="admin/assets/bundles/datatables/datatables.min.css">
+  <link rel="stylesheet" href="admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="admin/assets/css/style.css">
   <link rel="stylesheet" href="admin/assets/css/components.css">
   <!-- Custom style CSS -->
-   <link rel="stylesheet" href="admin/assets/bundles/datatables/datatables.min.css">
-  <link rel="stylesheet" href="admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="admin/assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='admin/assets/img/book.png' />
 </head>
+
 <body>
   <div class="loader">
     
@@ -80,12 +81,11 @@ $hide = base64_encode($uni_name);
               <img alt="image" src="admin/assets/img/book.png">
             </div>
           </div>
-         <ul class="sidebar-menu">
+        <ul class="sidebar-menu">
             <li class="menu-header">Main Menu</li>
             <li>
               <a href="index.php" class="nav-link"><i data-feather="search"></i><span>Search</span></a>
             </li>
-             <li class="menu-header">More Details</li>
           <li class="menu-header">Campuses</li>
             <li class="dropdown">
               <?php echo "<a href='campus.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus</span></a>" ;?>
@@ -111,85 +111,33 @@ $hide = base64_encode($uni_name);
           <div class='section-body'>
             <div class='invoice'>
               <div class='invoice-print'>
-                <div class='row'>
-                  <div class='col-lg-12'>
-                    <div class='invoice-title'>
-                      <h2><?php echo $uni_name;?></h2>
-                      <div class='invoice-number'>ID: <?php echo $id;?></div>
-                    </div>
-                    <hr>
-                    <div class='row'>
-                      <div class='col-md-6'>
-                        <address>
-                          <strong>More Information:</strong><br>
-                          Website: <b><?php echo "<a href = '' style = 'color: red; text-decoration: none;'>$web</a>" ;?></b><br>
-                          Physical Address: <?php echo $phy;?><br>
-                        </address>
-                      </div>
-                      <div class='col-md-6 text-md-right'>
-                        <address>
-                          <strong>Organization Type:</strong><br>
-                          <b style = 'color: green;'><?php echo $org;?></b><br>
-                        </address>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-md-6'>
-                        <address>
-                          <strong>Contacts:</strong><br>
-                          <?php echo $cont;?><br>
-                        </address>
-                      </div>
-                      <div class='col-md-6 text-md-right'>
-                        <address>
-                          <strong>Entry Date:</strong><br>
-                          <?php echo $created_at;?><br><br>
-                        </address>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div class='row mt-4'>
                   <div class='col-md-12'>
                     <div class='section-title'><b style = 'color: green;'><?php echo $uni_name; ?></b> Summary</div>
-                    <p class='section-lead'>All Campuses, Faculties, Departments And Programmes..</p>
+                    <p class='section-lead'>All Campuses</p>
                     <div class="table-responsive">
                       <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
                         <thead>
-                        <tr>
-                          <th data-width='40'>#</th>
-                          <th>Campus</th>
-                          <th class='text-center'>Faculty</th>
-                          <th class='text-center'>Department</th>
-                          <th class='text-right'>Programmes</th>
-                        </tr>    
+                          <tr>
+                            <th>S/n</th>
+                            <th>Campus Name</th>
+                            <th>Created at</th>
+                          </tr>
                         </thead>
                         <tbody>
                       <?php
                         while ($fetchfeed = mysql_fetch_array($runfeed)) {
                         $id = $fetchfeed['id'];
-                        $uni_name = $fetchfeed['university_name'];
-                        $lo = $fetchfeed['location'];
-                        $phy = $fetchfeed['phy_address'];
-                        $org = $fetchfeed['org_name'];
-                        $web = $fetchfeed['website'];
-                        $cont = $fetchfeed['contact'];
                         $cname = $fetchfeed['name'];
-                        $fname = $fetchfeed['fname'];
-                        $dname = $fetchfeed['d_name'];
-                        $pname = $fetchfeed['pro_name'];
                         $created_at = $fetchfeed['created_at'];
                         $xfeed++;
                         $hide = base64_encode($uni_name);
 
                     echo"
-                
                          <tr>
                           <td>$xfeed</td>
                           <td>$cname</td>
-                          <td>$fname</td>
-                          <td>$dname</td>
-                          <td>$pname</td>
+                          <td>$created_at</td>
                          </tr>
                       ";
 }
@@ -329,13 +277,12 @@ $hide = base64_encode($uni_name);
   <script src="admin/assets/js/app.min.js"></script>
   <!-- JS Libraies -->
   <!-- Page Specific JS File -->
-  <!-- Template JS File -->
-  <script src="admin/assets/js/scripts.js"></script>
-  <!-- Custom JS File -->
-  <script src="admin/assets/js/custom.js"></script>
    <script src="admin/assets/bundles/datatables/datatables.min.js"></script>
   <script src="admin/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
   <!-- Template JS File -->
   <script src="admin/assets/js/page/datatables.js"></script>
+  <script src="admin/assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="admin/assets/js/custom.js"></script>
 </body>
 </html>
