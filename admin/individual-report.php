@@ -395,7 +395,6 @@ else{
                             <th>Faculties</th>
                             <th>Departments</th>
                             <th>Programmes</th>
-                            <th>Title</th>
                             <th>Requirements</th>
                           </tr>
                         </thead>
@@ -408,7 +407,6 @@ else{
                                   $cname = $rows['name'];
                                   $dname = $rows['d_name'];
                                   $pname = $rows['pro_name'];
-                                  $tit = $rows['title'];
                                   $cont = $rows['content'];
                                   $x++;
                                   $enc = base64_encode($id);
@@ -419,7 +417,6 @@ else{
                                 <td>$fname</td>
                                 <td>$dname</td>
                                 <td>$pname</td>
-                                <td>$tit</td>
                                 <td>$cont</td>
                                 </tr>";
                               

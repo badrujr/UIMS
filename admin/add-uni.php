@@ -22,7 +22,7 @@ if (isset($_POST['save'])) {
   $org = mysql_escape_string(trim(strip_tags($_POST['org'])));
   $web = mysql_escape_string(trim(strip_tags($_POST['web'])));
   $cont = mysql_escape_string(trim(strip_tags($_POST['con'])));
-  $phy = mysql_escape_string(trim(strip_tags($_POST['phy'])));
+  $phy = mysql_escape_string($_POST['phy']);
 
   $check_uni = "SELECT * FROM university WHERE university_name = '$uname'";
   $run_check = mysql_query($check_uni);
@@ -424,7 +424,7 @@ if (isset($_POST['save'])) {
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Physical Address</label>
                       <div class="col-sm-12 col-md-7">
-                        <textarea class="summernote-simple" name="phy"></textarea>
+                        <textarea class="form-control" name="phy" id="editor"></textarea>
                       </div>
                     </div>
                     <div class="form-group row mb-4">
@@ -573,5 +573,11 @@ if (isset($_POST['save'])) {
   <script src="assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="assets/js/custom.js"></script>
+   <!-- ckeditor -->
+  <script src="assets/js/ckeditor/ckeditor.js"></script>
+
+  <script type="text/javascript">
+    CKEDITOR.replace('editor');
+  </script>
 </body>
 </html>

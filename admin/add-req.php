@@ -21,7 +21,7 @@ if (isset($_POST['requi'])) {
   $fname = mysql_escape_string(trim(strip_tags($_POST['fname'])));
   $dname = mysql_escape_string(trim(strip_tags($_POST['dname'])));
   $pname = mysql_escape_string(trim(strip_tags($_POST['pname'])));
-  $req = mysql_escape_string(trim(strip_tags($_POST['req'])));
+  $req = $_POST['req'];
   $tit = mysql_escape_string(trim(strip_tags($_POST['tit'])));
   $created_at = date('Y/m/d H:i:s');
 
@@ -525,7 +525,7 @@ if (isset($_POST['requi'])) {
    <div class='form-group row mb-4'>
                       <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Contents</label>
                       <div class='col-sm-12 col-md-7'>
-                        <textarea class='summernote-simple' name='req'></textarea>
+                        <textarea class='form-control' name='req' id = 'editor'></textarea>
                       </div>
                     </div>
         <div class='form-group row mb-4'>
@@ -534,9 +534,6 @@ if (isset($_POST['requi'])) {
             <input type='submit' name='requi' class='btn btn-primary' value='add-requirement'>
           </div>
         </div>";   
-          
-      
-
 
                                      }
                                      ?>
@@ -679,5 +676,11 @@ if (isset($_POST['requi'])) {
   <script src="assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="assets/js/custom.js"></script>
+  <!-- ckeditor -->
+  <script src="assets/js/ckeditor/ckeditor.js"></script>
+
+  <script type="text/javascript">
+    CKEDITOR.replace('editor');
+  </script>
 </body>
 </html>

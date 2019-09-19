@@ -126,24 +126,13 @@ $hide = base64_encode($uni_name);
                         <thead>
                           <tr>
                             <th>S/n</th>
-                            <th>Campus Name</th>
-                            <th>Faculty</th>
-                            <th>Department</th>
-                            <th>Programme</th>
-                            <th>Title</th>
                             <th>Requirements</th>
+                            <th>Created at</th>
                           </tr>
                         </thead>
                         <tbody>
                       <?php
                         while ($fetchcam = mysql_fetch_array($runcam)) {
-                        $id = $fetchcam['id'];
-                        $pid = $fetchcam['id'];
-                        $cname = $fetchcam['name'];
-                        $fnames = $fetchcam['fname'];
-                        $dnames = $fetchcam['d_name'];
-                        $pnames = $fetchcam['pro_name'];
-                        $tit = $fetchcam['title'];
                         $cont = $fetchcam['content'];
                         $created_at = $fetchcam['created_at'];
                         $xfeed++;
@@ -152,12 +141,8 @@ $hide = base64_encode($uni_name);
                     echo"
                          <tr>
                           <td>$xfeed</td>
-                          <td>$cname</td>
-                          <td>$fnames</td>
-                          <td>$dnames</td>
-                          <td>$pnames</td>
-                          <td>$tit</td>
                           <td>$cont</td>
+                          <td>$created_at</td>
                          </tr>
                       ";
                          }
