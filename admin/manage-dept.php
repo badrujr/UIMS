@@ -335,7 +335,7 @@ else{
                               <?php
                        require_once('dbconnection.php');
 
-                       $sel = "SELECT university.university_name,university.location,university.phy_address,campus.name,faculty.fname,department.d_name,department.created_at,department.d_id FROM university,campus,faculty,department WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id ";
+                       $sel = "SELECT university.university_name,university.location,university.phy_address,campus.name,faculty.fname,department.d_name,department.created_at,department.d_id FROM university,campus,faculty,department WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id  ORDER BY university.university_name";
                        $run = mysql_query($sel);
 
                        $x = 0;
@@ -357,8 +357,8 @@ else{
                           <td>$faculty_name</td>
                           <td>$dept_name</td>
                           <td>$created_at</td>
-                          <td><a href = 'edit-dept.php?xx=$enc'><i data-feather='edit'></i></a></td>
-                          <td><a href = 'verify-dept.php?xx=$enc'><i data-feather='trash'></i></a></td>
+                          <td><a href = 'edit-dept.php?xx=$enc'><i class = 'fas fa-edit'></i></a></td>
+                          <td><a href = 'verify-dept.php?xx=$enc'><i class = 'fas fa-trash' style = 'color: red;'></i></a></td>
                          </tr>";
                        }
 

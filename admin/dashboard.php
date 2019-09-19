@@ -295,6 +295,15 @@ else{
                 <li><a href="manage-pro.php">Manage Programme</a></li>
               </ul>
             </li>
+              <li class="menu-header">Requirement To Join</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="image"></i><span>Requirements</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-req.php">Add Requirement</a></li>
+                <li><a href="upload-req.php">Upload Requirement</a></li>
+                <li><a href="manage-req.php">Manage Requirement</a></li>
+              </ul>
+            </li>
             <li class="menu-header">Reports & Others</li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="file"></i><span>University Reports</span></a>

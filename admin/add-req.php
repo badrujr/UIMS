@@ -15,18 +15,85 @@ else{
     $name = $data['name'];
 }
 
+if (isset($_POST['requi'])) {
+  $uname = mysql_escape_string(trim(strip_tags($_POST['unamex'])));
+  $cname = mysql_escape_string(trim(strip_tags($_POST['cname'])));
+  $fname = mysql_escape_string(trim(strip_tags($_POST['fname'])));
+  $dname = mysql_escape_string(trim(strip_tags($_POST['dname'])));
+  $pname = mysql_escape_string(trim(strip_tags($_POST['pname'])));
+  $req = mysql_escape_string(trim(strip_tags($_POST['req'])));
+  $tit = mysql_escape_string(trim(strip_tags($_POST['tit'])));
+  $created_at = date('Y/m/d H:i:s');
+
+  if ($cname == "--select--") {
+      $error2 = "<div class='alert alert-danger alert-has-icon'>
+                         Please select any campus available, because $cname is not allowed...
+                         </div>";
+  }
+
+   else if ($fname == "--select--") {
+      $error3 = "<div class='alert alert-danger alert-has-icon'>
+                         Please select any faculty available, because $fname is not allowed...
+                         </div>";
+  }
+
+
+   else if ($dname == "--select--") {
+      $error3 = "<div class='alert alert-danger alert-has-icon'>
+                         Please select any department available, because $dname is not allowed...
+                         </div>";
+  }
+
+
+   else if ($pname == "--select--") {
+      $error4 = "<div class='alert alert-danger alert-has-icon'>
+                         Please select any Programme available, because $pname is not allowed...
+                         </div>";
+  }
+
+  else{
+     //$sql = "SELECT programme.id FROM university INNER JOIN campus ON university.id = campus.university_id INNER JOIN faculty ON campus.campus_id = faculty.c_id INNER JOIN department ON faculty.id = department.faculty_id INNER JOIN programme ON department.d_id = programme.d_id WHERE university.university_name = '$uname'";
+
+    $fac = "SELECT * FROM department INNER JOIN programme ON department.d_id = programme.d_id WHERE programme.pro_name = '$pname'"; 
+    $run_fac = mysql_query($fac);
+    while ($rows_data = mysql_fetch_array($run_fac)) {
+      $pid = $rows_data['id'];
+    }
+    
+    $sql = "INSERT INTO requirements (title,content,created_at,pro_id) VALUES ('$tit','$req','$created_at','$pid')";
+    $run = mysql_query($sql);
+  if ($run) {
+    $msg = "<div class='alert alert-success alert-has-icon'>
+                          Requirement For $pname have been added successfully...
+                         </div>";
+                         header('Refresh:3; URL=manage-req.php');
+  }
+
+  else{
+    $error = "<div class='alert alert-danger alert-has-icon'>
+                         Unable to add Requirements details...
+                         </div>";
+  }
+    
+  }
+
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>uis - General Report</title>
+  <title>uims - Add Requirement</title>
+  <!-- General CSS Files -->
   <!-- General CSS Files -->
   <link rel="stylesheet" href="assets/css/app.min.css">
-  <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
-  <link rel="stylesheet" href="assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/bundles/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="assets/bundles/jquery-selectric/selectric.css">
+  <link rel="stylesheet" href="assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -179,9 +246,9 @@ else{
               <div class="dropdown-title">Hey <?php echo $name;?></div>
               <a href="profile.php" class="dropdown-item has-icon"> <i class="far
                     fa-user"></i> Profile
-              </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
+              </a> <a href="who.php" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
                 Activities
-              </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
+              </a> <a href="reset-password.php" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
                 Settings
               </a>
               <div class="dropdown-divider"></div>
@@ -196,7 +263,7 @@ else{
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="dashboard.php"> <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">UIMS</span>
+                class="logo-name">UIS</span>
             </a>
           </div>
           <div class="sidebar-user">
@@ -216,7 +283,7 @@ else{
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="command"></i><span>Apps</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="calendar.html">Calendar</a></li>
+                <li><a class="nav-link" href="calendar.php">Calendar</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -224,7 +291,8 @@ else{
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="inbox.php">Inbox</a></li>
                 <li><a class="nav-link" href="compose.php">Compose</a></li>
-                <li><a class="nav-link" href="read.php">read</a></li>
+                <li><a class="nav-link" href="read.php">Read</a></li>
+                <li><a class="nav-link" href="chat.php">Chat</a></li>
               </ul>
             </li>
               <li class="dropdown">
@@ -233,6 +301,15 @@ else{
                 <li><a class="nav-link" href="add-user.php">Add user</a></li>
                 <li><a class="nav-link" href="upload-user.php">Upload user</a></li>
                 <li><a class="nav-link" href="manage-user.php">Manage user</a></li>
+              </ul>
+            </li>
+               <li class="menu-header">Organization Type</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="copy"></i><span>Organization</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-org.php">Add Organization</a></li>
+                <li><a class="nav-link" href="upload-org.php">Upload Organization</a></li>
+                <li><a class="nav-link" href="manage-org.php">Manage Organization</a></li>
               </ul>
             </li>
             <li class="menu-header">Universities</li>
@@ -254,19 +331,19 @@ else{
             </li>
             <li class="menu-header">Departments & Faculty</li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i data-feather="layout"></i><span>Department</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="add-dept.php">Add department</a></li>
-                <li><a class="nav-link" href="upload-dept.php">Upload department</a></li>
-                <li><a class="nav-link" href="manage-dept.php">Manage department</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="grid"></i><span>Faculty</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="add-faculty.php">Add faculty</a></li>
                 <li><a class="nav-link" href="upload-faculty.php">Upload faculty</a></li>
                 <li><a class="nav-link" href="manage-faculty.php">Manage faculty</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="layout"></i><span>Department</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-dept.php">Add department</a></li>
+                <li><a class="nav-link" href="upload-dept.php">Upload department</a></li>
+                <li><a class="nav-link" href="manage-dept.php">Manage department</a></li>
               </ul>
             </li>
             <li class="menu-header">Programmes</li>
@@ -278,14 +355,30 @@ else{
                 <li><a href="manage-pro.php">Manage Programme</a></li>
               </ul>
             </li>
+              <li class="menu-header">Requirement To Join</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="image"></i><span>Requirements</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-req.php">Add Requirement</a></li>
+                <li><a href="upload-req.php">Upload Requirement</a></li>
+                <li><a href="manage-req.php">Manage Requirement</a></li>
+              </ul>
+            </li>
+            <li class="menu-header">Reports & Others</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="file"></i><span>University Reports</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="individual-report.php">Individual Report</a></li>
+                <li><a href="general-report.php">General Report</a></li>
+              </ul>
+            </li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="anchor"></i><span>Other
                   Pages</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="create-post.php">Create Post</a></li>
+                <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
                 <li><a class="nav-link" href="posts.php">Posts</a></li>
                 <li><a class="nav-link" href="contact.php">Contact</a></li>
-                <li><a class="nav-link" href="invoice.php">Invoice</a></li>
               </ul>
             </li>
           </ul>
@@ -295,73 +388,159 @@ else{
       <div class="main-content">
         <section class="section">
           <div class="section-body">
-          <br>
-          <br>
             <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>General Report For All Universities/Institute/College</h4>
+                    <h4>Add Requirements</h4>
                   </div>
                   <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
-                        <thead>
-                          <tr>
-                            <th>S/n</th>
-                            <th>University/Institute/College</th>
-                            <th>Organization Type</th>
-                            <th>Website</th>
-                            <th>Physical Address</th>
-                            <th>Campus Name</th>
-                            <th>Faculty(ies)</th>
-                            <th>Department(s)</th>
-                            <th>Programme(s)</th>
-                            <th>Created at</th>
-                            <th>view</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                              <?php
-                       require_once('dbconnection.php');
+                    <?php echo $msg; echo $error;?>
+                    <form method="POST" action="">
+                      <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">University Name:</label>
+                      <div class="col-sm-12 col-md-7">
+                        <select class="form-control selectric" name="uname">
+                          <option>--select--</option>
+                          <?php
+                          require_once('dbconnection.php');
+                          $sel = "SELECT DISTINCT university_name FROM university ORDER BY university_name";
+                          $sql = mysql_query($sel);
+                          while ($rows = mysql_fetch_array($sql)) {
+                            $cname = $rows['name'];
+                            $uname = $rows['university_name'];
 
-                       $sel = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id ORDER BY university.university_name ";
-                       $run = mysql_query($sel);
+                            echo"<option>$uname</option>";
 
-                       $x = 0;
-                       while ($rows = mysql_fetch_array($run)) {
-                         $id = $rows['id'];
-                         $org = $rows['name'];
-                         $web = $rows['website'];
-                         $uname = $rows['university_name'];
-                         $created_at = $rows['created_at'];
-                         $campus_name = $rows['name'];
-                         $faculty_name = $rows['fname'];
-                         $lo = $rows['phy_address'];
-                         $dname = $rows['d_name'];
-                         $pro = $rows['name'];
-                         $enc = base64_encode($id);
-                         $x++;
+                            //echo "<input type='text' name='unamex' value='$uname;'>";
+                          }
 
-                         echo"<tr>
-                          <td>$x</td>
-                          <td>$uname</td>
-                          <td>$org</td>
-                          <td>$web</td>
-                          <td>$lo</td>
-                          <td>$campus_name</td>
-                          <td>$faculty_name</td>
-                          <td>$dname</td>
-                          <td>$pro</td>
-                          <td>$created_at</td>
-                          <td><a href = 'collegeGenPreview.php?xx=$enc'><i data-feather='eye'></i></a></td>
-                         </tr>";
-                       }
+
 
                           ?>
-                        </tbody>
-                      </table>
+                        </select>
+
+                      </div>
                     </div>
+                    
+                      <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                      <div class="col-sm-12 col-md-7">
+                        <input type="submit" name="check" class="btn btn-primary" value="submit">
+                      </div>
+                    </div>
+                    <hr style="color: black;">
+                    <?php
+     require_once('dbconnection.php');
+      if (isset($_POST['check'])) {
+      $chuo = mysql_real_escape_string(trim(strip_tags($_POST['uname'])));
+      //for campuses
+      $sqll = "SELECT DISTINCT name FROM university,campus,faculty,department WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND university.university_name = '$chuo'";
+      $run_sqll = mysql_query($sqll);
+
+        //for department
+       $sqld = "SELECT DISTINCT d_name FROM university,campus,faculty,department WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND university.university_name = '$chuo'";
+      $run_sqld = mysql_query($sqld);
+        //for faculty
+       $sqlx = "SELECT DISTINCT fname FROM university,campus,faculty,department WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND university.university_name = '$chuo'";
+      $run_sqlx = mysql_query($sqlx);
+
+      //for programmes
+       $sqlp = "SELECT DISTINCT pro_name FROM university,campus,faculty,department,programme WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name = '$chuo'";
+      $run_sqlp = mysql_query($sqlp);
+
+      if ($chuo=='--select--') {
+        echo"
+      <div class='alert alert-danger alert-dismissible'>
+      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button> Please select any University/institute/college because <b>$chuo</b> is not allowed...
+      </div>";
+      }
+
+      else{
+
+        echo "
+         <div class='form-group row mb-4'>
+          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Campus Name:</label>
+          <div class='col-sm-12 col-md-7'>
+            <select class='form-control selectric' name='cname'>
+              <option>--select--</option>";
+      while ($row_campus = mysql_fetch_array($run_sqll)) {
+          $c_id = $row_campus['campus_id'];
+          $campus_name = $row_campus['name'];
+          echo"<option>$campus_name</option>";   
+        }
+        echo "</select>
+          </div>
+        </div>";
+
+        echo"
+        <div class='form-group row mb-4'>
+          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Faculty:</label>
+          <div class='col-sm-12 col-md-7'>
+            <select class='form-control selectric' name='fname'>
+              <option>--select--</option>";
+        while($rows_faculty = mysql_fetch_array($run_sqlx)){
+          $faculty_name = $rows_faculty['fname'];
+           echo"<option>$faculty_name</option>";
+        }
+        echo "</select>
+          </div>
+        </div>";
+
+        echo"  <div class='form-group row mb-4'>
+          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Department:</label>
+          <div class='col-sm-12 col-md-7'>
+            <select class='form-control selectric' name='dname'>
+              <option>--select--</option>";
+              while($rows_dept = mysql_fetch_array($run_sqld)){
+                $dept_name = $rows_dept['d_name']; 
+                 echo "<option>$dept_name</option>";
+              }
+        echo "</select>
+          </div>
+        </div>";
+
+        echo"  <div class='form-group row mb-4'>
+          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Programme:</label>
+          <div class='col-sm-12 col-md-7'>
+            <select class='form-control selectric' name='pname'>
+              <option>--select--</option>";
+              while($rows_pro = mysql_fetch_array($run_sqlp)){
+                $pro_name = $rows_pro['pro_name']; 
+                 echo "<option>$pro_name</option>";
+              }
+        echo "</select>
+          </div>
+        </div>";
+  }           
+
+  echo "
+    
+   <div class='form-group row mb-4'>
+                      <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Title:</label>
+                      <div class='col-sm-12 col-md-7'>
+                        <input type='text' class='form-control' name='tit'>
+                      </div>
+                    </div>
+   <div class='form-group row mb-4'>
+                      <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Contents</label>
+                      <div class='col-sm-12 col-md-7'>
+                        <textarea class='summernote-simple' name='req'></textarea>
+                      </div>
+                    </div>
+        <div class='form-group row mb-4'>
+          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'></label>
+          <div class='col-sm-12 col-md-7'>
+            <input type='submit' name='requi' class='btn btn-primary' value='add-requirement'>
+          </div>
+        </div>";   
+          
+      
+
+
+                                     }
+                                     ?>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -480,21 +659,22 @@ else{
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2019 <div class="bullet"></div> Design By <a href="#">Ternet-dev</a>
+          Copyright &copy; 2019 <div class="bullet"></div> Design By <a href="#">Ternet-Dev</a>
         </div>
         <div class="footer-right">
         </div>
       </footer>
     </div>
   </div>
-  <!-- General JS Scripts -->
+ <!-- General JS Scripts -->
   <script src="assets/js/app.min.js"></script>
   <!-- JS Libraies -->
-  <script src="assets/bundles/datatables/datatables.min.js"></script>
-  <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-  <script src="assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+  <script src="assets/bundles/summernote/summernote-bs4.js"></script>
+  <script src="assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
+  <script src="assets/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
+  <script src="assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
   <!-- Page Specific JS File -->
-  <script src="assets/js/page/datatables.js"></script>
+  <script src="assets/js/page/create-post.js"></script>
   <!-- Template JS File -->
   <script src="assets/js/scripts.js"></script>
   <!-- Custom JS File -->

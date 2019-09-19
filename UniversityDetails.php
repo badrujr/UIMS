@@ -9,7 +9,26 @@ $sel  = "SELECT * FROM university,campus,faculty,department,programme,organizati
 $run = mysql_query($sel);
 $x = 0;
 
-$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+//counting campus,faculty,department and programmes
+
+$selcon  = "SELECT DISTINCT campus.name FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$runcon = mysql_query($selcon);
+$countcamp = mysql_num_rows($runcon);
+
+$selfac  = "SELECT DISTINCT faculty.fname FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$runfac = mysql_query($selfac);
+$countfac = mysql_num_rows($runfac);
+
+
+$seldept  = "SELECT DISTINCT department.d_name FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$rundept = mysql_query($seldept);
+$countdept = mysql_num_rows($rundept);
+
+$selpro  = "SELECT DISTINCT programme.pro_name FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$runpro = mysql_query($selpro);
+$countpro = mysql_num_rows($runpro);
+//end here
+$selfeed  = "SELECT DISTINCT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
 $runfeed = mysql_query($selfeed);
 $xfeed = 0;
 
@@ -47,6 +66,15 @@ $hide = base64_encode($uni_name);
   <link rel="stylesheet" href="admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="admin/assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='admin/assets/img/book.png' />
+  <script type="text/javascript" src="maps.js"></script>
+
+  <style type="text/css">
+    #map {
+      width: 100%;
+      height: 100%;
+      border: 1px solid blue;
+    }
+  </style>
 </head>
 <body>
   <div class="loader">
@@ -88,19 +116,24 @@ $hide = base64_encode($uni_name);
              <li class="menu-header">More Details</li>
           <li class="menu-header">Campuses</li>
             <li class="dropdown">
-              <?php echo "<a href='campus.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus</span></a>" ;?>
+              <?php 
+              echo "<a href='campus.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus ($countcamp)</span></a>" ;?>
             </li>
             <li class="menu-header">Faculties</li>
             <li class="dropdown">
-               <?php echo "<a href='faculty.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>Faculty</span></a>" ;?>
+               <?php 
+               echo "<a href='faculty.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Faculty ($countfac)</span></a>" ;?>
             </li>
             <li class="menu-header">Departments</li>
             <li class="dropdown">
-               <?php echo "<a href='dept.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>Department</span></a>" ;?>
+               <?php 
+               echo 
+               "<a href='dept.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Department ($countdept)</span></a>" ;?>
             </li>
             <li class="menu-header">Programmes</li>
             <li class="dropdown">
-               <?php echo "<a href='pro.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme</span></a>" ;?>
+               <?php 
+               echo "<a href='pro.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme ($countpro)</span></a>" ;?>
             </li>
           </ul>
         </aside>
@@ -154,48 +187,9 @@ $hide = base64_encode($uni_name);
                     <div class='section-title'><b style = 'color: green;'><?php echo $uni_name; ?></b> Summary</div>
                     <p class='section-lead'>All Campuses, Faculties, Departments And Programmes..</p>
                     <div class="table-responsive">
-                      <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
-                        <thead>
-                        <tr>
-                          <th data-width='40'>#</th>
-                          <th>Campus</th>
-                          <th class='text-center'>Faculty</th>
-                          <th class='text-center'>Department</th>
-                          <th class='text-right'>Programmes</th>
-                        </tr>    
-                        </thead>
-                        <tbody>
-                      <?php
-                        while ($fetchfeed = mysql_fetch_array($runfeed)) {
-                        $id = $fetchfeed['id'];
-                        $uni_name = $fetchfeed['university_name'];
-                        $lo = $fetchfeed['location'];
-                        $phy = $fetchfeed['phy_address'];
-                        $org = $fetchfeed['org_name'];
-                        $web = $fetchfeed['website'];
-                        $cont = $fetchfeed['contact'];
-                        $cname = $fetchfeed['name'];
-                        $fname = $fetchfeed['fname'];
-                        $dname = $fetchfeed['d_name'];
-                        $pname = $fetchfeed['pro_name'];
-                        $created_at = $fetchfeed['created_at'];
-                        $xfeed++;
-                        $hide = base64_encode($uni_name);
-
-                    echo"
-                
-                         <tr>
-                          <td>$xfeed</td>
-                          <td>$cname</td>
-                          <td>$fname</td>
-                          <td>$dname</td>
-                          <td>$pname</td>
-                         </tr>
-                      ";
-}
-                      ?>
-                    </tbody>
-                      </table>
+                     <div id="map">
+                       
+                     </div>
                     </div>
                   </div>
                 </div>
@@ -337,5 +331,6 @@ $hide = base64_encode($uni_name);
   <script src="admin/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
   <!-- Template JS File -->
   <script src="admin/assets/js/page/datatables.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1R3PZOtJ9yJA7twg_2scQ5tCNEv_bn0w&callback=loadMap"></script>
 </body>
 </html>

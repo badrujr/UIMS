@@ -349,8 +349,8 @@ else{
                           <td>$names</td>
                           <td>$uname</td>
                           <td>$created_at</td>
-                          <td><a href = 'edit-cam.php?xx=$enc'><i data-feather='edit'></i></a></td>
-                          <td><a href = 'verify-cam.php?xx=$enc'><i data-feather='trash'></i></a></td>
+                          <td><a href = 'edit-cam.php?xx=$enc'><i class = 'fas fa-edit'></i></a></td>
+                          <td><a href = 'verify-cam.php?xx=$enc'><i class = 'fas fa-trash' style = 'color: red;'></i></a></td>
                          </tr>";
                        }
 

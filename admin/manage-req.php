@@ -22,7 +22,7 @@ else{
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>uis - General Report</title>
+  <title>uims - Manage Requirements</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="assets/css/app.min.css">
   <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
@@ -34,7 +34,6 @@ else{
   <link rel="stylesheet" href="assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
 </head>
-
 <body>
   <div class="loader"></div>
   <div id="app">
@@ -179,9 +178,9 @@ else{
               <div class="dropdown-title">Hey <?php echo $name;?></div>
               <a href="profile.php" class="dropdown-item has-icon"> <i class="far
                     fa-user"></i> Profile
-              </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
+              </a> <a href="who.php" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
                 Activities
-              </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
+              </a> <a href="reset-password.php" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
                 Settings
               </a>
               <div class="dropdown-divider"></div>
@@ -196,7 +195,7 @@ else{
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="dashboard.php"> <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">UIMS</span>
+                class="logo-name">UIS</span>
             </a>
           </div>
           <div class="sidebar-user">
@@ -216,7 +215,7 @@ else{
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="command"></i><span>Apps</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="calendar.html">Calendar</a></li>
+                <li><a class="nav-link" href="calendar.php">Calendar</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -224,7 +223,8 @@ else{
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="inbox.php">Inbox</a></li>
                 <li><a class="nav-link" href="compose.php">Compose</a></li>
-                <li><a class="nav-link" href="read.php">read</a></li>
+                <li><a class="nav-link" href="read.php">Read</a></li>
+                <li><a class="nav-link" href="chat.php">Chat</a></li>
               </ul>
             </li>
               <li class="dropdown">
@@ -233,6 +233,15 @@ else{
                 <li><a class="nav-link" href="add-user.php">Add user</a></li>
                 <li><a class="nav-link" href="upload-user.php">Upload user</a></li>
                 <li><a class="nav-link" href="manage-user.php">Manage user</a></li>
+              </ul>
+            </li>
+               <li class="menu-header">Organization Type</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="copy"></i><span>Organization</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-org.php">Add Organization</a></li>
+                <li><a class="nav-link" href="upload-org.php">Upload Organization</a></li>
+                <li><a class="nav-link" href="manage-org.php">Manage Organization</a></li>
               </ul>
             </li>
             <li class="menu-header">Universities</li>
@@ -254,19 +263,19 @@ else{
             </li>
             <li class="menu-header">Departments & Faculty</li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i data-feather="layout"></i><span>Department</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="add-dept.php">Add department</a></li>
-                <li><a class="nav-link" href="upload-dept.php">Upload department</a></li>
-                <li><a class="nav-link" href="manage-dept.php">Manage department</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="grid"></i><span>Faculty</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="add-faculty.php">Add faculty</a></li>
                 <li><a class="nav-link" href="upload-faculty.php">Upload faculty</a></li>
                 <li><a class="nav-link" href="manage-faculty.php">Manage faculty</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="layout"></i><span>Department</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-dept.php">Add department</a></li>
+                <li><a class="nav-link" href="upload-dept.php">Upload department</a></li>
+                <li><a class="nav-link" href="manage-dept.php">Manage department</a></li>
               </ul>
             </li>
             <li class="menu-header">Programmes</li>
@@ -278,14 +287,30 @@ else{
                 <li><a href="manage-pro.php">Manage Programme</a></li>
               </ul>
             </li>
+              <li class="menu-header">Requirement To Join</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="image"></i><span>Requirements</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-req.php">Add Requirement</a></li>
+                <li><a href="upload-req.php">Upload Requirement</a></li>
+                <li><a href="manage-req.php">Manage Requirement</a></li>
+              </ul>
+            </li>
+            <li class="menu-header">Reports & Others</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="file"></i><span>University Reports</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="individual-report.php">Individual Report</a></li>
+                <li><a href="general-report.php">General Report</a></li>
+              </ul>
+            </li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="anchor"></i><span>Other
                   Pages</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="create-post.php">Create Post</a></li>
+                <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
                 <li><a class="nav-link" href="posts.php">Posts</a></li>
                 <li><a class="nav-link" href="contact.php">Contact</a></li>
-                <li><a class="nav-link" href="invoice.php">Invoice</a></li>
               </ul>
             </li>
           </ul>
@@ -295,13 +320,26 @@ else{
       <div class="main-content">
         <section class="section">
           <div class="section-body">
+              <div class="row">
+              <div class="col-12">
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <ul class="nav nav-pills">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#" style="align-content: right;">PDF Document</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           <br>
           <br>
             <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>General Report For All Universities/Institute/College</h4>
+                    <h4>Requirement To Join at A particular University/Institute/College</h4>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -310,51 +348,50 @@ else{
                           <tr>
                             <th>S/n</th>
                             <th>University/Institute/College</th>
-                            <th>Organization Type</th>
-                            <th>Website</th>
-                            <th>Physical Address</th>
                             <th>Campus Name</th>
-                            <th>Faculty(ies)</th>
-                            <th>Department(s)</th>
-                            <th>Programme(s)</th>
+                            <th>Faculty</th>
+                            <th>Department</th>
+                            <th>Programmes</th>
+                            <th>Title</th>
+                            <th>Requirements</th>
                             <th>Created at</th>
-                            <th>view</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
                           </tr>
                         </thead>
                         <tbody>
                               <?php
                        require_once('dbconnection.php');
 
-                       $sel = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id ORDER BY university.university_name ";
+                       $sel = "SELECT * FROM university,campus,faculty,department,programme,requirements WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND programme.id = requirements.pro_id ORDER BY university.university_name  ASC";
                        $run = mysql_query($sel);
 
                        $x = 0;
                        while ($rows = mysql_fetch_array($run)) {
-                         $id = $rows['id'];
-                         $org = $rows['name'];
-                         $web = $rows['website'];
+                         $id = $rows['r_id'];
                          $uname = $rows['university_name'];
                          $created_at = $rows['created_at'];
                          $campus_name = $rows['name'];
                          $faculty_name = $rows['fname'];
-                         $lo = $rows['phy_address'];
-                         $dname = $rows['d_name'];
-                         $pro = $rows['name'];
+                         $dept_name = $rows['d_name'];
+                         $pro_name = $rows['pro_name'];
+                         $tit = $rows['title'];
+                         $cont = $rows['content'];
                          $enc = base64_encode($id);
                          $x++;
 
                          echo"<tr>
                           <td>$x</td>
                           <td>$uname</td>
-                          <td>$org</td>
-                          <td>$web</td>
-                          <td>$lo</td>
                           <td>$campus_name</td>
                           <td>$faculty_name</td>
-                          <td>$dname</td>
-                          <td>$pro</td>
+                          <td>$dept_name</td>
+                           <td>$pro_name</td>
+                            <td>$tit</td>
+                             <td>$cont</td>
                           <td>$created_at</td>
-                          <td><a href = 'collegeGenPreview.php?xx=$enc'><i data-feather='eye'></i></a></td>
+                          <td><a href = 'edit-req.php?xx=$enc'><i class = 'fas fa-edit'></i></a></td>
+                          <td><a href = 'verify-req.php?xx=$enc'><i class = 'fas fa-trash' style = 'color: red;'></i></a></td>
                          </tr>";
                        }
 

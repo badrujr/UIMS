@@ -4,7 +4,7 @@ session_start();
 require_once('dbconnection.php');
 require_once('UserInfo.php');
 
-$chuo_id = base64_decode($_GET['xx']);
+$chuo_id = base64_decode($_GET['xxx']);
 $sel  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name ='$chuo_id'";
 $run = mysql_query($sel);
 $x = 0;
@@ -80,26 +80,31 @@ $hide = base64_encode($uni_name);
               <img alt="image" src="admin/assets/img/book.png">
             </div>
           </div>
-        <ul class="sidebar-menu">
+      <ul class="sidebar-menu">
             <li class="menu-header">Main Menu</li>
             <li>
               <a href="index.php" class="nav-link"><i data-feather="search"></i><span>Search</span></a>
             </li>
           <li class="menu-header">Campuses</li>
             <li class="dropdown">
-              <?php echo "<a href='campus.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus</span></a>" ;?>
+              <?php 
+              $count = mysql_num_rows($run);
+              echo "<a href='campus.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus ($count)</span></a>" ;?>
             </li>
             <li class="menu-header">Faculties</li>
             <li class="dropdown">
-               <?php echo "<a href='faculty.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>Faculty</span></a>" ;?>
+               <?php $count = mysql_num_rows($run);
+               echo "<a href='faculty.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Faculty ($count)</span></a>" ;?>
             </li>
             <li class="menu-header">Departments</li>
             <li class="dropdown">
-               <?php echo "<a href='dept.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>Department</span></a>" ;?>
+               <?php $count = mysql_num_rows($run);
+               echo "<a href='dept.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Department ($count)</span></a>" ;?>
             </li>
             <li class="menu-header">Programmes</li>
             <li class="dropdown">
-               <?php echo "<a href='pro.php?xx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme</span></a>" ;?>
+               <?php $count = mysql_num_rows($run);
+               echo "<a href='pro.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme ($count)</span></a>" ;?>
             </li>
           </ul>
         </aside>
@@ -121,23 +126,26 @@ $hide = base64_encode($uni_name);
                             <th>S/n</th>
                             <th>Department Name</th>
                             <th>Created at</th>
+                            <th>View Programmes</th>
                           </tr>
                         </thead>
                         <tbody>
                       <?php
                         while ($fetchfeed = mysql_fetch_array($runfeed)) {
-                        $id = $fetchfeed['id'];
+                        $pid = $fetchfeed['id'];
                         $uni_name = $fetchfeed['university_name'];
                         $dname = $fetchfeed['d_name'];
+                        $pname = $fetchfeed['pro_name'];
                         $created_at = $fetchfeed['created_at'];
                         $xfeed++;
-                        $hide = base64_encode($uni_name);
+                        $hide = base64_encode($pid);
 
                     echo"
                          <tr>
                           <td>$xfeed</td>
                           <td>$dname</td>
                           <td>$created_at</td>
+                          <td><a href = 'DetailsPro.php?xx=$hide'><i class = 'fas fa-eye'>&nbsp;</i></a></td>
                          </tr>
                       ";
 }

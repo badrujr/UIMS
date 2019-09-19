@@ -9,9 +9,15 @@ $sel  = "SELECT * FROM university,campus,faculty,department,programme,organizati
 $run = mysql_query($sel);
 $x = 0;
 
-$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type,requirements WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id  AND programme.id = requirements.pro_id AND university.university_name ='$chuo_id'";
+$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name ='$chuo_id'";
 $runfeed = mysql_query($selfeed);
 $xfeed = 0;
+//campus & faculty..
+$id = base64_decode($_GET['xx']);
+$selcam = "SELECT DISTINCT campus.name,campus.campus_id,faculty.id,department.created_at,department.d_id,department.d_name,programme.id,programme.pro_name,requirements.r_id,requirements.title,requirements.content FROM university,campus,faculty,department,programme,requirements WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND programme.id = requirements.pro_id AND programme.id ='$id' ";
+$runcam = mysql_query($selcam);
+$xcam = 0;
+//campus & faculty..
 
 while ($fetch = mysql_fetch_array($run)) {
 $id = $fetch['id'];
@@ -29,6 +35,27 @@ $created_at = $fetch['created_at'];
 $x++;
 $hide = base64_encode($uni_name);
 }
+
+
+//counting campus,faculty,department and programmes
+
+$selcon  = "SELECT DISTINCT campus.name FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$runcon = mysql_query($selcon);
+$countcamp = mysql_num_rows($runcon);
+
+$selfac  = "SELECT DISTINCT faculty.fname FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$runfac = mysql_query($selfac);
+$countfac = mysql_num_rows($runfac);
+
+
+$seldept  = "SELECT DISTINCT department.d_name FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$rundept = mysql_query($seldept);
+$countdept = mysql_num_rows($rundept);
+
+$selpro  = "SELECT DISTINCT programme.pro_name FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
+$runpro = mysql_query($selpro);
+$countpro = mysql_num_rows($runpro);
+//end here
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +75,7 @@ $hide = base64_encode($uni_name);
   <link rel="stylesheet" href="admin/assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='admin/assets/img/book.png' />
 </head>
+
 <body>
   <div class="loader">
     
@@ -80,31 +108,26 @@ $hide = base64_encode($uni_name);
               <img alt="image" src="admin/assets/img/book.png">
             </div>
           </div>
-         <ul class="sidebar-menu">
+        <ul class="sidebar-menu">
             <li class="menu-header">Main Menu</li>
             <li>
               <a href="index.php" class="nav-link"><i data-feather="search"></i><span>Search</span></a>
             </li>
           <li class="menu-header">Campuses</li>
             <li class="dropdown">
-              <?php 
-              $count = mysql_num_rows($run);
-              echo "<a href='campus.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus ($count)</span></a>" ;?>
+              <?php echo "<a href='campus.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus</span></a>" ;?>
             </li>
             <li class="menu-header">Faculties</li>
             <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='faculty.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Faculty ($count)</span></a>" ;?>
+               <?php echo "<a href='faculty.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Faculty</span></a>" ;?>
             </li>
             <li class="menu-header">Departments</li>
             <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='dept.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Department ($count)</span></a>" ;?>
+               <?php echo "<a href='dept.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Department</span></a>" ;?>
             </li>
             <li class="menu-header">Programmes</li>
             <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='pro.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme ($count)</span></a>" ;?>
+               <?php echo "<a href='pro.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme</span></a>" ;?>
             </li>
           </ul>
         </aside>
@@ -118,35 +141,44 @@ $hide = base64_encode($uni_name);
                 <div class='row mt-4'>
                   <div class='col-md-12'>
                     <div class='section-title'><b style = 'color: green;'><?php echo $uni_name; ?></b> Summary</div>
-                    <p class='section-lead'>All Programmes</p>
+                    <p class='section-lead'>Campuses: <?php echo $cname;?> >>> Faculty: <?php echo $fname;?> >> Department: <?php echo $dname;?> > Programmes</p>
                     <div class="table-responsive">
                       <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
                         <thead>
                           <tr>
                             <th>S/n</th>
-                            <th>Programme Name</th>
+                            <th>Campus Name</th>
+                            <th>Faculty</th>
+                            <th>Department</th>
+                            <th>Programme</th>
                             <th>Requirements</th>
-                            <th>Created at</th>
                           </tr>
                         </thead>
                         <tbody>
                       <?php
-                        while ($fetchfeed = mysql_fetch_array($runfeed)) {
-                        $rid = $fetchfeed['r_id'];
-                        $pname = $fetchfeed['pro_name'];
-                        $created_at = $fetchfeed['created_at'];
+                        while ($fetchcam = mysql_fetch_array($runcam)) {
+                        $id = $fetchcam['id'];
+                        $pid = $fetchcam['id'];
+                        $rid = $fetchcam['r_id'];
+                        $cname = $fetchcam['name'];
+                        $fnames = $fetchcam['fname'];
+                        $dnames = $fetchcam['d_name'];
+                        $pnames = $fetchcam['pro_name'];
+                        $created_at = $fetchcam['created_at'];
                         $xfeed++;
-                        $eny = base64_encode($rid);
+                        $ency = base64_encode($rid);
 
                     echo"
                          <tr>
                           <td>$xfeed</td>
-                          <td>$pname</td>
-                          <td><a href = 'DetailsReq.php?xx=$eny'><i class = 'fas fa-eye'>&nbsp;</i></a></td>
-                          <td class='text-center'>$created_at</td>
+                          <td>$cname</td>
+                          <td>$fnames</td>
+                          <td>$dnames</td>
+                          <td>$pnames</td>
+                          <td><a href = 'DetailsReq.php?xx=$ency'><i class = 'fas fa-eye'>&nbsp;</i></a></td>
                          </tr>
                       ";
-}
+                         }
                       ?>
                     </tbody>
                       </table>

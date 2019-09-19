@@ -20,7 +20,7 @@ $sel  = "SELECT * FROM university,campus,faculty,department,programme,organizati
 $run = mysql_query($sel);
 $x = 0;
 
-$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name ='$chuo'";
+$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type,requirements WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND programme.id = requirements.pro_id AND university.university_name ='$chuo'";
 $runfeed = mysql_query($selfeed);
 $x = 0;
 
@@ -389,6 +389,8 @@ $hide = base64_encode($uni_name);
                           <th class='text-center'>Faculty</th>
                           <th class='text-center'>Department</th>
                           <th class='text-right'>Programmes</th>
+                          <th class='text-right'>Title</th>
+                          <th class='text-right'>Requirements</th>
                         </tr>
                       <?php
                       $xfeed = 0;
@@ -404,6 +406,8 @@ $hide = base64_encode($uni_name);
                         $fname = $fetchfeed['fname'];
                         $dname = $fetchfeed['d_name'];
                         $pname = $fetchfeed['pro_name'];
+                        $tit = $fetchfeed['title'];
+                        $cont = $fetchfeed['content'];
                         $created_at = $fetchfeed['created_at'];
                         $xfeed++;
                         $hide = base64_encode($uni_name);
@@ -415,6 +419,8 @@ $hide = base64_encode($uni_name);
                           <td class='text-center'>$fname</td>
                           <td class='text-center'>$dname</td>
                           <td class='text-right'>$pname</td>
+                          <td class='text-right'>$tit</td>
+                          <td class='text-right'>$cont</td>
                          </tr>
                       ";
 }

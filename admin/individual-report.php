@@ -356,7 +356,7 @@ else{
              require_once('dbconnection.php');
                         if (isset($_POST['save'])) {
                         $uni = mysql_real_escape_string(trim(strip_tags($_POST['uni'])));
-                        $sqll = "SELECT * FROM university,campus,faculty,department,programme WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name = '$uni'";
+                        $sqll = "SELECT * FROM university,campus,faculty,department,programme,requirements WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND programme.id = requirements.pro_id AND university.university_name = '$uni'";
                         $run_sqll = mysql_query($sqll);
                         $num = mysql_num_rows($run_sqll);
                         $x = 0;
@@ -395,6 +395,8 @@ else{
                             <th>Faculties</th>
                             <th>Departments</th>
                             <th>Programmes</th>
+                            <th>Title</th>
+                            <th>Requirements</th>
                           </tr>
                         </thead>
                         <tbody>";    
@@ -406,6 +408,8 @@ else{
                                   $cname = $rows['name'];
                                   $dname = $rows['d_name'];
                                   $pname = $rows['pro_name'];
+                                  $tit = $rows['title'];
+                                  $cont = $rows['content'];
                                   $x++;
                                   $enc = base64_encode($id);
                                   echo"<tr>
@@ -415,6 +419,8 @@ else{
                                 <td>$fname</td>
                                 <td>$dname</td>
                                 <td>$pname</td>
+                                <td>$tit</td>
+                                <td>$cont</td>
                                 </tr>";
                               
                                   }
