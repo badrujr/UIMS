@@ -73,42 +73,7 @@ $hide = base64_encode($uni_name);
           </li>
         </ul>
       </nav>
-      <div class="main-sidebar sidebar-style-2">
-        <aside id="sidebar-wrapper">
-          <div class="sidebar-user">
-            <div class="sidebar-user-picture">
-              <img alt="image" src="admin/assets/img/book.png">
-            </div>
-          </div>
-      <ul class="sidebar-menu">
-            <li class="menu-header">Main Menu</li>
-            <li>
-              <a href="index.php" class="nav-link"><i data-feather="search"></i><span>Search</span></a>
-            </li>
-          <li class="menu-header">Campuses</li>
-            <li class="dropdown">
-              <?php 
-              $count = mysql_num_rows($run);
-              echo "<a href='campus.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus ($count)</span></a>" ;?>
-            </li>
-            <li class="menu-header">Faculties</li>
-            <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='faculty.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Faculty ($count)</span></a>" ;?>
-            </li>
-            <li class="menu-header">Departments</li>
-            <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='dept.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Department ($count)</span></a>" ;?>
-            </li>
-            <li class="menu-header">Programmes</li>
-            <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='pro.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme ($count)</span></a>" ;?>
-            </li>
-          </ul>
-        </aside>
-      </div>
+     <?php require_once('sidebar.php');?>
       <!-- Main Content -->
              <div class='main-content'>
         <section class='section'>
@@ -126,7 +91,7 @@ $hide = base64_encode($uni_name);
                             <th>S/n</th>
                             <th>Department Name</th>
                             <th>Created at</th>
-                            <th>View Programmes</th>
+                            <th>More Info</th>
                           </tr>
                         </thead>
                         <tbody>

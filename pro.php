@@ -8,11 +8,6 @@ $chuo_id = base64_decode($_GET['xxx']);
 $sel  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name ='$chuo_id'";
 $run = mysql_query($sel);
 $x = 0;
-
-$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type,requirements WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id  AND programme.id = requirements.pro_id AND university.university_name ='$chuo_id'";
-$runfeed = mysql_query($selfeed);
-$xfeed = 0;
-
 while ($fetch = mysql_fetch_array($run)) {
 $id = $fetch['id'];
 $uni_name = $fetch['university_name'];
@@ -29,6 +24,11 @@ $created_at = $fetch['created_at'];
 $x++;
 $hide = base64_encode($uni_name);
 }
+//feedsData
+$selfeed  = "SELECT * FROM university,campus,faculty,department,programme,organization_type,requirements WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id  AND programme.id = requirements.pro_id AND university.university_name ='$chuo_id'";
+$runfeed = mysql_query($selfeed);
+$xfeed = 0;
+//feedsData
 ?>
 
 <!DOCTYPE html>
@@ -73,42 +73,7 @@ $hide = base64_encode($uni_name);
           </li>
         </ul>
       </nav>
-      <div class="main-sidebar sidebar-style-2">
-        <aside id="sidebar-wrapper">
-          <div class="sidebar-user">
-            <div class="sidebar-user-picture">
-              <img alt="image" src="admin/assets/img/book.png">
-            </div>
-          </div>
-         <ul class="sidebar-menu">
-            <li class="menu-header">Main Menu</li>
-            <li>
-              <a href="index.php" class="nav-link"><i data-feather="search"></i><span>Search</span></a>
-            </li>
-          <li class="menu-header">Campuses</li>
-            <li class="dropdown">
-              <?php 
-              $count = mysql_num_rows($run);
-              echo "<a href='campus.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>campus ($count)</span></a>" ;?>
-            </li>
-            <li class="menu-header">Faculties</li>
-            <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='faculty.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Faculty ($count)</span></a>" ;?>
-            </li>
-            <li class="menu-header">Departments</li>
-            <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='dept.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Department ($count)</span></a>" ;?>
-            </li>
-            <li class="menu-header">Programmes</li>
-            <li class="dropdown">
-               <?php $count = mysql_num_rows($run);
-               echo "<a href='pro.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme ($count)</span></a>" ;?>
-            </li>
-          </ul>
-        </aside>
-      </div>
+     <?php require_once('sidebar.php');?>
       <!-- Main Content -->
              <div class='main-content'>
         <section class='section'>
@@ -125,7 +90,7 @@ $hide = base64_encode($uni_name);
                           <tr>
                             <th>S/n</th>
                             <th>Programme Name</th>
-                            <th>Requirements</th>
+                            <th>More Info</th>
                             <th>Created at</th>
                           </tr>
                         </thead>

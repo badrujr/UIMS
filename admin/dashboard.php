@@ -302,6 +302,8 @@ else{
                 <li><a class="nav-link" href="add-req.php">Add Requirement</a></li>
                 <li><a href="upload-req.php">Upload Requirement</a></li>
                 <li><a href="manage-req.php">Manage Requirement</a></li>
+                <li><a href="add-general-req.php">General Requirement</a></li>
+                <li><a href="manage-all-req.php">Manage all Requirement</a></li>
               </ul>
             </li>
             <li class="menu-header">Reports & Others</li>
