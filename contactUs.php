@@ -169,126 +169,118 @@ class UserInfo{
 
 }
 
+require_once('dbconnection.php');
+
+if (isset($_POST['contact'])) {
+  $name = mysql_escape_string(trim(strip_tags($_POST['name'])));
+  $email = mysql_escape_string(trim(strip_tags($_POST['email'])));
+  $msg = mysql_escape_string(trim(strip_tags($_POST['msg'])));
+
+  $sql = "INSERT INTO contactus (name,email,msg) VALUE ('$name','$email','$msg')";
+  $run = mysql_query($sql);
+
+  if ($run) {
+    $sms = "<div class = 'alert alert-success'>Received! Thank You For Your message, Enjoy uims.</div>";
+    header('Refresh:3; URL=index.php');
+  }
+
+  else{
+    $error = "<div class = 'alert alert-danger'>Denied! Something is wrong.</div>";
+
+  }
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Uims - Search University</title>
+  <title>uims - contacts us</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="admin/assets/css/app.min.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="admin/assets/css/style.css">
   <link rel="stylesheet" href="admin/assets/css/components.css">
-   <link rel="stylesheet" href="admin/assets/bundles/datatables/datatables.min.css">
-  <link rel="stylesheet" href="admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="admin/assets/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='admin/assets/img/book.png' />
+  <link rel='shortcut icon' type='image/x-icon' href='admin/assets/img/favicon.ico' />
 </head>
-<!--The script to avoid back button on after logout start here -->
-  <script type="text/javascript">
-    function preventBack() { window.history.forward();}
-    setTimeout("preventBack()",0);
-    window.onunload = function () { null };
-  </script>
-<!-- End here-->
+
 <body>
   <div class="loader"></div>
   <div id="app">
     <section class="section">
       <div class="container mt-5">
-        <div class="page-error">
-          <div class="page-inner">
-            <h4><img src="admin/assets/img/tan.gif" style="height: 30px; width: 50px;" class="rounded-circle">University Infromation Management System (UIMS)</h4>
-            <div class="page-description"> 
-              <p style="font-size: 18px; color: maroon; font-family: Comic Sans MS;">This Search Engine Will Help You To Get More Information About The Particular University/Institute/College...</p>
-               <div class="sidebar-user-details">
-              <div class="user-name"><img src='admin/assets/img/4042.gif' style='height: 110px; width: 100px;' class="user-img-radious-style"></div>
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+            <div class="login-brand">
+              University Information Management System (uims)
             </div>
-            </div>
-            <div class="page-search">
-              <form method="POST" action="">
-                <div class="form-group floating-addon floating-addon-not-append">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="fas fa-search"></i>
+            <div class="card card-primary">
+              <div class="row m-0">
+                <div class="col-12 col-md-12 col-lg-5 p-0">
+                  <div class="card-header text-center">
+                    <h4>Contact Us</h4>
+                  </div>
+                  <div class="card-body">
+                    <form method="POST">
+                      <div class="form-group floating-addon">
+                        <label>Name</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i class="far fa-user"></i>
+                            </div>
+                          </div>
+                          <input id="name" type="text" class="form-control" name="name" autofocus placeholder="Name">
+                        </div>
                       </div>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Search" name="tafuta" autocomplete="off" required="">
-                    <div class="input-group-append">
-                      <input type="submit" name="search" class="btn btn-primary btn-lg" value="Search">
-                    </div>
+                      <div class="form-group floating-addon">
+                        <label>Email</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i class="fas fa-envelope"></i>
+                            </div>
+                          </div>
+                          <input id="email" type="email" class="form-control" name="email" placeholder="Email">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-control" placeholder="Type your message" data-height="150" name="msg"></textarea>
+                      </div>
+                      <?php echo $sms; echo $error;?>
+                      <div class="form-group text-right">
+                        <button type="submit" class="btn btn-round btn-lg btn-primary" name="contact">
+                          Send Message
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
-              </form>
-              <?php
-            session_start();
-            require_once('dbconnection.php');
-            if (isset($_POST['search'])) {
-            $searchq = mysql_escape_string(trim(strip_tags($_POST['tafuta'])));
-            //$searchq = preg_replace("#[^0-9a-z]#i","",$searchq);
-            $query = "SELECT * FROM university WHERE university_name LIKE '%$searchq%' OR website LIKE '%$searchq%'";
-            $sql = mysql_query($query);
-            $count = mysql_num_rows($sql);
-            $x = 0;
-            if ($count <= 0) {
-              echo "
-              <img src='admin/assets/img/404.gif' style='height: 150px; width: 140px;'>";
-            }
-              else{
-                 while ($rows = mysql_fetch_array($sql)) {
-                    $id = $rows['id'];
-                    $uname = $rows['university_name'];
-                    $org = $rows['org_name'];
-                    $web = $rows['website'];
-                    $campus = $rows['name'];
-                    $faculty = $rows['fname'];
-                    $dept = $rows['d_name'];
-                    $pro = $rows['pro_name'];
-                    $x++;
-                    $hide = base64_encode($id);
-                    echo "
-
-                     <div class='card mb-0'>
-                  <div class='card-body'>
-                  <div class='card-header'>
-                    <h4>Results Found for <b style = 'color: red;'><a href = 'UniversityDetails.php?xxx=$hide' style = 'text-decoration:none; color: red;'>$searchq, <b style = 'color:black;'> as $uname</b></a> </b></h4>
-                  </div>  
-                  </div>
-                </div>
-                  <br>";
-        }
-      } 
-}
-?>
-                    </div>
-                  </div>
+                <div class="col-12 col-md-12 col-lg-7 p-0">
+                  <div id="map" class="contact-map"></div>
                 </div>
               </div>
             </div>
+            <div class="simple-footer">
+              Copyright &copy; uims 2019 <a href="index.php" style="text-decoration: none;">Home</a>
             </div>
           </div>
         </div>
       </div>
-        <div class="simple-footer">
-              Copyright &copy; uims 2019 <a href="contactUs.php" style="text-decoration: none;">Contact us</a>
-            </div>
     </section>
   </div>
-    
   <!-- General JS Scripts -->
   <script src="admin/assets/js/app.min.js"></script>
-   <!-- JS Libraies -->
-  <script src="admin/assets/bundles/datatables/datatables.min.js"></script>
-  <script src="admin/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-  <script src="admin/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
-  <!-- Page Specific JS File -->
-  <script src="admin/assets/js/page/datatables.js"></script>
   <!-- JS Libraies -->
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyB1R3PZOtJ9yJA7twg_2scQ5tCNEv_bn0w&amp;sensor=true"></script>
+  <script src="admin/assets/bundles/gmaps.js"></script>
   <!-- Page Specific JS File -->
+  <script src="admin/assets/js/page/contact.js"></script>
   <!-- Template JS File -->
   <script src="admin/assets/js/scripts.js"></script>
   <!-- Custom JS File -->

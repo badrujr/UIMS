@@ -330,6 +330,17 @@ if (isset($_POST['faculty'])) {
                 <li><a href="manage-pro.php">Manage Programme</a></li>
               </ul>
             </li>
+              <li class="menu-header">Requirement To Join</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="image"></i><span>Requirements</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-req.php">Add Requirement</a></li>
+                <li><a href="upload-req.php">Upload Requirement</a></li>
+                <li><a href="manage-req.php">Manage Requirement</a></li>
+                <li><a href="add-general-req.php">General Requirement</a></li>
+                <li><a href="manage-all-req.php">Manage all Requirement</a></li>
+              </ul>
+            </li>
             <li class="menu-header">Reports & Others</li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="file"></i><span>University Reports</span></a>
@@ -342,9 +353,8 @@ if (isset($_POST['faculty'])) {
               <a href="#" class="nav-link has-dropdown"><i data-feather="anchor"></i><span>Other
                   Pages</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="create-post.php">Create Post</a></li>
-                <li><a class="nav-link" href="posts.php">Posts</a></li>
-                <li><a class="nav-link" href="contact.php">Contact</a></li>
+                <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
+                <li><a class="nav-link" href="comments.php">Comments</a></li>
               </ul>
             </li>
           </ul>

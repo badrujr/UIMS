@@ -15,25 +15,18 @@ else{
     $name = $data['name'];
 }
 
-    $action="Dashboard";
-    $dt=date("y-m-d h:i:s");
-    $inv="  INSERT INTO `visited` (`id`, `user`, `title`, `action`,`date_time`) VALUES (NULL, '$name', '$pos','$action','$dt')";
-    $iser=mysql_query($inv);
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>uis - Admin Dashboard</title>
+  <title>uims - Manage comments</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="assets/css/app.min.css">
-  <link rel="stylesheet" href="assets/bundles/jqvmap/dist/jqvmap.min.css">
-  <link rel="stylesheet" href="assets/bundles/weather-icon/css/weather-icons.min.css">
-  <link rel="stylesheet" href="assets/bundles/weather-icon/css/weather-icons-wind.min.css">
-  <link rel="stylesheet" href="assets/bundles/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
+  <link rel="stylesheet" href="assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -41,6 +34,7 @@ else{
   <link rel="stylesheet" href="assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
 </head>
+
 
 <body>
   <div class="loader"></div>
@@ -51,7 +45,7 @@ else{
         <div class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
-									collapse-btn"> <i data-feather="align-justify"></i></a></li>
+                  collapse-btn"> <i data-feather="align-justify"></i></a></li>
             <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
                 <i data-feather="maximize"></i>
               </a></li>
@@ -81,7 +75,7 @@ else{
               </div>
               <div class="dropdown-list-content dropdown-list-message">
                 <a href="#" class="dropdown-item"> <span class="dropdown-item-avatar
-											text-white"> <img alt="image" src="assets/img/users/user-1.png" class="rounded-circle">
+                      text-white"> <img alt="image" src="assets/img/users/user-1.png" class="rounded-circle">
                   </span> <span class="dropdown-item-desc"> <span class="message-user">John
                       Deo</span>
                     <span class="time messege-text">Please check your mail !!</span>
@@ -143,20 +137,20 @@ else{
               <div class="dropdown-list-content dropdown-list-icons">
                 <a href="#" class="dropdown-item dropdown-item-unread"> <span
                     class="dropdown-item-icon bg-primary text-white"> <i class="fas
-												fa-code"></i>
+                        fa-code"></i>
                   </span> <span class="dropdown-item-desc"> Template update is
                     available now! <span class="time">2 Min
                       Ago</span>
                   </span>
                 </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-info text-white"> <i class="far
-												fa-user"></i>
+                        fa-user"></i>
                   </span> <span class="dropdown-item-desc"> <b>You</b> and <b>Dedik
                       Sugiharto</b> are now friends <span class="time">10 Hours
                       Ago</span>
                   </span>
                 </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-success text-white"> <i
                       class="fas
-												fa-check"></i>
+                        fa-check"></i>
                   </span> <span class="dropdown-item-desc"> <b>Kusnaedi</b> has
                     moved task <b>Fix bug header</b> to <b>Done</b> <span class="time">12
                       Hours
@@ -168,7 +162,7 @@ else{
                     clean it! <span class="time">17 Hours Ago</span>
                   </span>
                 </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-info text-white"> <i class="fas
-												fa-bell"></i>
+                        fa-bell"></i>
                   </span> <span class="dropdown-item-desc"> Welcome to uims
                     template! <span class="time">Yesterday</span>
                   </span>
@@ -185,7 +179,7 @@ else{
             <div class="dropdown-menu dropdown-menu-right pullDown">
               <div class="dropdown-title">Hey <?php echo $name;?></div>
               <a href="profile.php" class="dropdown-item has-icon"> <i class="far
-										fa-user"></i> Profile
+                    fa-user"></i> Profile
               </a> <a href="who.php" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
                 Activities
               </a> <a href="reset-password.php" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
@@ -328,347 +322,65 @@ else{
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-          <div class="row ">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card l-bg-green-dark">
-                <div class="card-statistic-3">
-                  <div class="card-icon card-icon-large"><i class="fa fa-university"></i></div>
-                  <div class="card-content">
-                    <h4 class="card-title">Total Universities</h4>
-                    <span><?php
-                        require_once('dbconnection.php');
-                        $count = "SELECT * FROM university";
-                        $query = mysql_query($count);
-                        $num = mysql_num_rows($query);
-                        echo $num;
-                    ?></span>
-                    <div class="progress mt-1 mb-1" data-height="8">
-                      <div class="progress-bar l-bg-purple" role="progressbar" data-width="25%" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Comments From Live users</h4>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card l-bg-cyan-dark">
-                <div class="card-statistic-3">
-                  <div class="card-icon card-icon-large"><i class="fa fa-briefcase"></i></div>
-                  <div class="card-content">
-                    <h4 class="card-title">Total Campus</h4>
-                    <span><?php
-                        require_once('dbconnection.php');
-                        $count = "SELECT * FROM campus";
-                        $query = mysql_query($count);
-                        $num = mysql_num_rows($query);
-                        echo $num;
-                    ?></span>
-                    <div class="progress mt-1 mb-1" data-height="8">
-                      <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card l-bg-purple-dark">
-                <div class="card-statistic-3">
-                  <div class="card-icon card-icon-large"><i class="fa fa-user"></i></div>
-                  <div class="card-content">
-                    <h4 class="card-title">Users</h4>
-                    <span><?php
-                        require_once('dbconnection.php');
-                        $count = "SELECT * FROM users";
-                        $query = mysql_query($count);
-                        $num = mysql_num_rows($query);
-                        echo $num;
-                    ?></span>
-                    <div class="progress mt-1 mb-1" data-height="8">
-                      <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card l-bg-orange-dark">
-                <div class="card-statistic-3">
-                  <div class="card-icon card-icon-large"><i class="fa fa-envelope"></i></div>
-                  <div class="card-content">
-                    <h4 class="card-title">Emails</h4>
-                    <span>2,658</span>
-                    <div class="progress mt-1 mb-1" data-height="8">
-                      <div class="progress-bar l-bg-green" role="progressbar" data-width="25%" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="card-body">
+                     <a class="btn btn-primary" href="comment-report.php" style="float: right;">PDF Document</a>
+                      <br>
+                      <br>
+                      <br>
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                        <thead>
+                          <tr>
+                            <th>S/n</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>created at</th>
+                            <th>Remove</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                       require_once('dbconnection.php');
+                       $sel = "SELECT * FROM contactus ORDER BY created_at DESC";
+                       $run = mysql_query($sel);
+                       $x = 0;
+
+                       while ($rows = mysql_fetch_array($run)) {
+                         $id = $rows['id'];
+                         $names = $rows['name'];
+                         $emails = $rows['email'];
+                         $msg = $rows['msg'];
+                         $time = $rows['created_at'];
+                         $enc = base64_encode($id);
+                         $x++;
+
+                         echo"<tr>
+                          <td>$x</td>
+                          <td>$names</td>
+                          <td>$emails</td>
+                          <td>$msg</td>
+                          <td>$time</td>
+                          <td><a href = 'verify-comment.php?xx=$enc'><i class = 'fas fa-trash' style = 'color:red;'></i></a></td>
+                         </tr>";
+                       }
+
+                          ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12 col-sm-12 col-lg-6">
-              <div class="card">
-                <div class="card-header">
-                  <h4>Universities/Institution/College</h4>
-                </div>
-                <div class="card-body">
-                  <div id="echart_graph_line" class="chartsh"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-12 col-lg-6">
-              <div class="card">
-                <div class="card-header">
-                  <h4>Campuses</h4>
-                </div>
-                <div class="card-body">
-                  <div class="summary">
-                    <div class="summary-chart active" data-tab-group="summary-tab" id="summary-chart">
-                      <div id="echart_area_line" class="chartsh"></div>
-                    </div>
-                    <div data-tab-group="summary-tab" id="summary-text">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-sm-12 col-lg-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4>Project Details</h4>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive table-invoice">
-                    <table class="table table-striped">
-                      <tr>
-                        <th class="text-center">#</th>
-                        <th>Project Name</th>
-                        <th>Customer</th>
-                        <th>Team</th>
-                        <th>Progress</th>
-                        <th>Start Date</th>
-                        <th>Delivery Date</th>
-                        <th>Action</th>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-1"> <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Ecommerce website</a></td>
-                        <td class="font-weight-600">Sarah Smith</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0 m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-8.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-9.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-10.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+4</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="30%">
-                            <div class="progress-bar bg-orange" data-width="30"></div>
-                          </div>
-                        </td>
-                        <td>July 19, 2018</td>
-                        <td>March 25, 2019</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-2"> <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Android App</a></td>
-                        <td class="font-weight-600">Airi Satou</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0 m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-3.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-7.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+2</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="55%">
-                            <div class="progress-bar bg-purple" data-width="55"></div>
-                          </div>
-                        </td>
-                        <td>March 21, 2015</td>
-                        <td>July 22, 2017</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-3"> <label for="checkbox-3" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Logo Design</a></td>
-                        <td class="font-weight-600">Ashton Cox</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0 m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-1.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-5.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-9.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+5</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="55%">
-                            <div class="progress-bar bg-green" data-width="55"></div>
-                          </div>
-                        </td>
-                        <td>Feb 02, 2018</td>
-                        <td>March 12, 2019</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-4"> <label for="checkbox-4" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Java Project</a></td>
-                        <td class="font-weight-600">Cara Stevens</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-4.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-7.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-10.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-2.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+1</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="30%">
-                            <div class="progress-bar bg-orange" data-width="30"></div>
-                          </div>
-                        </td>
-                        <td>July 19, 2018</td>
-                        <td>March 25, 2019</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-5"> <label for="checkbox-5" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Ecommerce website</a></td>
-                        <td class="font-weight-600">John Doe</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-8.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-4.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-3.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+2</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="80%">
-                            <div class="progress-bar bg-green" data-width="80"></div>
-                          </div>
-                        </td>
-                        <td>May 11, 2017</td>
-                        <td>March 15, 2018</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-6"> <label for="checkbox-6" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Android App</a></td>
-                        <td class="font-weight-600">Angelica Ramos</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-3.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-1.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+2</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="56%">
-                            <div class="progress-bar bg-purple" data-width="56"></div>
-                          </div>
-                        </td>
-                        <td>June 02, 2018</td>
-                        <td>April 05, 2019</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        
         </section>
         <div class="settingSidebar">
           <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
@@ -782,7 +494,7 @@ else{
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2019 <div class="bullet"></div> Design By <a href="#">Ternet-Dev</a>
+          Copyright &copy; 2019 <div class="bullet"></div> Design By <a href="#">TERNET-DEV</a>
         </div>
         <div class="footer-right">
         </div>
@@ -792,10 +504,11 @@ else{
   <!-- General JS Scripts -->
   <script src="assets/js/app.min.js"></script>
   <!-- JS Libraies -->
-  <script src="assets/bundles/echart/echarts.js"></script>
-  <script src="assets/bundles/chartjs/chart.min.js"></script>
+  <script src="assets/bundles/datatables/datatables.min.js"></script>
+  <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/bundles/jquery-ui/jquery-ui.min.js"></script>
   <!-- Page Specific JS File -->
-  <script src="assets/js/page/index.js"></script>
+  <script src="assets/js/page/datatables.js"></script>
   <!-- Template JS File -->
   <script src="assets/js/scripts.js"></script>
   <!-- Custom JS File -->

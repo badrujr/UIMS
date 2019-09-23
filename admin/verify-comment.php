@@ -15,79 +15,21 @@ else{
     $name = $data['name'];
 }
 
-if (isset($_POST['requi'])) {
-  $uname = mysql_escape_string(trim(strip_tags($_POST['unamex'])));
-  $cname = mysql_escape_string(trim(strip_tags($_POST['cname'])));
-  $fname = mysql_escape_string(trim(strip_tags($_POST['fname'])));
-  $dname = mysql_escape_string(trim(strip_tags($_POST['dname'])));
-  $pname = mysql_escape_string(trim(strip_tags($_POST['pname'])));
-  $req = $_POST['req'];
-  $tit = mysql_escape_string(trim(strip_tags($_POST['tit'])));
-  $created_at = date('Y/m/d H:i:s');
+$id = base64_decode($_GET['xx']);
+$sel = "SELECT * FROM contactus WHERE id = '$id'";
+$run = mysql_query($sel);
+$fetch = mysql_fetch_array($run);
+$uid = $fetch['id'];
+$msg = $fetch['msg'];
 
-  if ($cname == "--select--") {
-      $error2 = "<div class='alert alert-danger alert-has-icon'>
-                         Please select any campus available, because $cname is not allowed...
-                         </div>";
-  }
-
-   else if ($fname == "--select--") {
-      $error3 = "<div class='alert alert-danger alert-has-icon'>
-                         Please select any faculty available, because $fname is not allowed...
-                         </div>";
-  }
-
-
-   else if ($dname == "--select--") {
-      $error3 = "<div class='alert alert-danger alert-has-icon'>
-                         Please select any department available, because $dname is not allowed...
-                         </div>";
-  }
-
-
-   else if ($pname == "--select--") {
-      $error4 = "<div class='alert alert-danger alert-has-icon'>
-                         Please select any Programme available, because $pname is not allowed...
-                         </div>";
-  }
-
-  else{
-     //$sql = "SELECT programme.id FROM university INNER JOIN campus ON university.id = campus.university_id INNER JOIN faculty ON campus.campus_id = faculty.c_id INNER JOIN department ON faculty.id = department.faculty_id INNER JOIN programme ON department.d_id = programme.d_id WHERE university.university_name = '$uname'";
-
-    $fac = "SELECT * FROM department INNER JOIN programme ON department.d_id = programme.d_id WHERE programme.pro_name = '$pname'"; 
-    $run_fac = mysql_query($fac);
-    while ($rows_data = mysql_fetch_array($run_fac)) {
-      $pid = $rows_data['id'];
-    }
-    
-    $sql = "INSERT INTO requirements (title,content,created_at,pro_id) VALUES ('$tit','$req','$created_at','$pid')";
-    $run = mysql_query($sql);
-  if ($run) {
-    $msg = "<div class='alert alert-success alert-has-icon'>
-                          Requirement For $pname have been added successfully...
-                         </div>";
-                         header('Refresh:3; URL=manage-req.php');
-  }
-
-  else{
-    $error = "<div class='alert alert-danger alert-has-icon'>
-                         Unable to add Requirements details...
-                         </div>";
-  }
-    
-  }
-
-}
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>uims - Add Requirement</title>
+  <title>uims - Remove comment</title>
   <!-- General CSS Files -->
   <!-- General CSS Files -->
   <link rel="stylesheet" href="assets/css/app.min.css">
@@ -101,7 +43,6 @@ if (isset($_POST['requi'])) {
   <link rel="stylesheet" href="assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
 </head>
-
 <body>
   <div class="loader"></div>
   <div id="app">
@@ -263,7 +204,7 @@ if (isset($_POST['requi'])) {
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="dashboard.php"> <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">UIS</span>
+                class="logo-name">UIMS</span>
             </a>
           </div>
           <div class="sidebar-user">
@@ -283,7 +224,7 @@ if (isset($_POST['requi'])) {
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="command"></i><span>Apps</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="calendar.php">Calendar</a></li>
+                <li><a class="nav-link" href="calendar.html">Calendar</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -291,8 +232,7 @@ if (isset($_POST['requi'])) {
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="inbox.php">Inbox</a></li>
                 <li><a class="nav-link" href="compose.php">Compose</a></li>
-                <li><a class="nav-link" href="read.php">Read</a></li>
-                <li><a class="nav-link" href="chat.php">Chat</a></li>
+                <li><a class="nav-link" href="read.php">read</a></li>
               </ul>
             </li>
               <li class="dropdown">
@@ -355,31 +295,14 @@ if (isset($_POST['requi'])) {
                 <li><a href="manage-pro.php">Manage Programme</a></li>
               </ul>
             </li>
-              <li class="menu-header">Requirement To Join</li>
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i data-feather="image"></i><span>Requirements</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="add-req.php">Add Requirement</a></li>
-                <li><a href="upload-req.php">Upload Requirement</a></li>
-                <li><a href="manage-req.php">Manage Requirement</a></li>
-                <li><a href="add-general-req.php">General Requirement</a></li>
-                <li><a href="manage-all-req.php">Manage all Requirement</a></li>
-              </ul>
-            </li>
-            <li class="menu-header">Reports & Others</li>
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i data-feather="file"></i><span>University Reports</span></a>
-              <ul class="dropdown-menu">
-                <li><a class="nav-link" href="individual-report.php">Individual Report</a></li>
-                <li><a href="general-report.php">General Report</a></li>
-              </ul>
-            </li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="anchor"></i><span>Other
                   Pages</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
-                <li><a class="nav-link" href="comments.php">Comments</a></li>
+                <li><a class="nav-link" href="create-post.php">Create Post</a></li>
+                <li><a class="nav-link" href="posts.php">Posts</a></li>
+                <li><a class="nav-link" href="contact.php">Contact</a></li>
+                <li><a class="nav-link" href="invoice.php">Invoice</a></li>
               </ul>
             </li>
           </ul>
@@ -393,152 +316,33 @@ if (isset($_POST['requi'])) {
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Add Requirements</h4>
+                    <h4>Are You Sure You Want To Remove This comment?</h4>
                   </div>
                   <div class="card-body">
-                    <?php echo $msg; echo $error;?>
-                    <form method="POST" action="">
-                      <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">University Name:</label>
+                    <form name="" action="delete-comment-query.php" method="POST">
+                      <input type="hidden" name="uid" value="<?php echo $uid;?>">
+                        <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">msg:</label>
                       <div class="col-sm-12 col-md-7">
-                        <select class="form-control selectric" name="uname">
-                          <option>--select--</option>
-                          <?php
-                          require_once('dbconnection.php');
-                          $sel = "SELECT DISTINCT university_name FROM university ORDER BY university_name";
-                          $sql = mysql_query($sel);
-                          while ($rows = mysql_fetch_array($sql)) {
-                            $cname = $rows['name'];
-                            $uname = $rows['university_name'];
-
-                            echo"<option>$uname</option>";
-
-                            //echo "<input type='text' name='unamex' value='$uname;'>";
-                          }
-
-
-
-                          ?>
-                        </select>
-
+                        <input type="text" class="form-control" name="msg" value="<?php echo $msg;?>" readonly>
                       </div>
                     </div>
-                    
-                      <div class="form-group row mb-4">
+
+                    <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                       <div class="col-sm-12 col-md-7">
-                        <input type="submit" name="check" class="btn btn-primary" value="submit">
+                        <input type="submit" name="save" class="btn btn-danger" value="Yes! Remove">
                       </div>
                     </div>
-                    <hr style="color: black;">
-                    <?php
-     require_once('dbconnection.php');
-      if (isset($_POST['check'])) {
-      $chuo = mysql_real_escape_string(trim(strip_tags($_POST['uname'])));
-      //for campuses
-      $sqll = "SELECT DISTINCT name FROM university,campus,faculty,department WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND university.university_name = '$chuo'";
-      $run_sqll = mysql_query($sqll);
-
-        //for department
-       $sqld = "SELECT DISTINCT d_name FROM university,campus,faculty,department WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND university.university_name = '$chuo'";
-      $run_sqld = mysql_query($sqld);
-        //for faculty
-       $sqlx = "SELECT DISTINCT fname FROM university,campus,faculty,department WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND university.university_name = '$chuo'";
-      $run_sqlx = mysql_query($sqlx);
-
-      //for programmes
-       $sqlp = "SELECT DISTINCT pro_name FROM university,campus,faculty,department,programme WHERE university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.university_name = '$chuo'";
-      $run_sqlp = mysql_query($sqlp);
-
-      if ($chuo=='--select--') {
-        echo"
-      <div class='alert alert-danger alert-dismissible'>
-      <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button> Please select any University/institute/college because <b>$chuo</b> is not allowed...
-      </div>";
-      }
-
-      else{
-
-        echo "
-         <div class='form-group row mb-4'>
-          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Campus Name:</label>
-          <div class='col-sm-12 col-md-7'>
-            <select class='form-control selectric' name='cname'>
-              <option>--select--</option>";
-      while ($row_campus = mysql_fetch_array($run_sqll)) {
-          $c_id = $row_campus['campus_id'];
-          $campus_name = $row_campus['name'];
-          echo"<option>$campus_name</option>";   
-        }
-        echo "</select>
-          </div>
-        </div>";
-
-        echo"
-        <div class='form-group row mb-4'>
-          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Faculty:</label>
-          <div class='col-sm-12 col-md-7'>
-            <select class='form-control selectric' name='fname'>
-              <option>--select--</option>";
-        while($rows_faculty = mysql_fetch_array($run_sqlx)){
-          $faculty_name = $rows_faculty['fname'];
-           echo"<option>$faculty_name</option>";
-        }
-        echo "</select>
-          </div>
-        </div>";
-
-        echo"  <div class='form-group row mb-4'>
-          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Department:</label>
-          <div class='col-sm-12 col-md-7'>
-            <select class='form-control selectric' name='dname'>
-              <option>--select--</option>";
-              while($rows_dept = mysql_fetch_array($run_sqld)){
-                $dept_name = $rows_dept['d_name']; 
-                 echo "<option>$dept_name</option>";
-              }
-        echo "</select>
-          </div>
-        </div>";
-
-        echo"  <div class='form-group row mb-4'>
-          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Programme:</label>
-          <div class='col-sm-12 col-md-7'>
-            <select class='form-control selectric' name='pname'>
-              <option>--select--</option>";
-              while($rows_pro = mysql_fetch_array($run_sqlp)){
-                $pro_name = $rows_pro['pro_name']; 
-                 echo "<option>$pro_name</option>";
-              }
-        echo "</select>
-          </div>
-        </div>";
-  }           
-
-  echo "
-    
-   <div class='form-group row mb-4'>
-                      <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Title:</label>
-                      <div class='col-sm-12 col-md-7'>
-                        <input type='text' class='form-control' name='tit'>
+                      <div class="d-block">
+                      <div class="float-right">
+                        <a href="manage-user.php" class="text-small" style="text-decoration: none; color: green;">
+                          No! Go Back
+                        </a>
                       </div>
                     </div>
-   <div class='form-group row mb-4'>
-                      <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'>Contents</label>
-                      <div class='col-sm-12 col-md-7'>
-                        <textarea class='form-control' name='req' id = 'editor'></textarea>
-                      </div>
-                    </div>
-        <div class='form-group row mb-4'>
-          <label class='col-form-label text-md-right col-12 col-md-3 col-lg-3'></label>
-          <div class='col-sm-12 col-md-7'>
-            <input type='submit' name='requi' class='btn btn-primary' value='add-requirement'>
-          </div>
-        </div>";   
-
-                                     }
-                                     ?>
                     </form>
+                  
                   </div>
                 </div>
               </div>
@@ -677,11 +481,5 @@ if (isset($_POST['requi'])) {
   <script src="assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="assets/js/custom.js"></script>
-  <!-- ckeditor -->
-  <script src="assets/js/ckeditor/ckeditor.js"></script>
-
-  <script type="text/javascript">
-    CKEDITOR.replace('editor');
-  </script>
 </body>
 </html>

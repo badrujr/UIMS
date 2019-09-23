@@ -357,8 +357,7 @@ if (isset($_POST['requi'])) {
                   Pages</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
-                <li><a class="nav-link" href="posts.php">Posts</a></li>
-                <li><a class="nav-link" href="contact.php">Contact</a></li>
+                <li><a class="nav-link" href="comments.php">Comments</a></li>
               </ul>
             </li>
           </ul>
