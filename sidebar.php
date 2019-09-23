@@ -4,11 +4,6 @@ session_start();
 require_once('dbconnection.php');
 require_once('UserInfo.php');
 
-
-$chuo_id = base64_decode($_GET['xxx']);
-$sel  = "SELECT * FROM university,campus,faculty,department,programme,organization_type WHERE organization_type.org_type_id = university.org_type_id AND university.id = campus.university_id AND campus.campus_id = faculty.c_id AND faculty.id = department.faculty_id AND department.d_id = programme.d_id AND university.id ='$chuo_id'";
-$run = mysql_query($sel);
-$x = 0;
 while ($fetch = mysql_fetch_array($run)) {
 $id = $fetch['id'];
 $uni_name = $fetch['university_name'];

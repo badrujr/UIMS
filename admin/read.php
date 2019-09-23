@@ -15,6 +15,15 @@ else{
     $name = $data['name'];
 }
 
+$user_id = base64_decode($_GET['xxx']);
+$view = "SELECT * FROM contactus WHERE id = '$user_id'";
+$run_view = mysql_query($view);
+$fetch_view = mysql_fetch_array($run_view);
+$user_name = $fetch_view['name'];
+$msg = $fetch_view['msg'];
+$user_email = $fetch_view['email'];
+$created_at = $fetch_view['created_at'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -194,7 +203,7 @@ else{
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="dashboard.php"> <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">UIMS</span>
+                class="logo-name">UIS</span>
             </a>
           </div>
           <div class="sidebar-user">
@@ -222,7 +231,8 @@ else{
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="inbox.php">Inbox</a></li>
                 <li><a class="nav-link" href="compose.php">Compose</a></li>
-                <li><a class="nav-link" href="read.php">read</a></li>
+                <li><a class="nav-link" href="read.php">Read</a></li>
+                <li><a class="nav-link" href="chat.php">Chat</a></li>
               </ul>
             </li>
               <li class="dropdown">
@@ -285,14 +295,31 @@ else{
                 <li><a href="manage-pro.php">Manage Programme</a></li>
               </ul>
             </li>
+              <li class="menu-header">Requirement To Join</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="image"></i><span>Requirements</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-req.php">Add Requirement</a></li>
+                <li><a href="upload-req.php">Upload Requirement</a></li>
+                <li><a href="manage-req.php">Manage Requirement</a></li>
+                <li><a href="add-general-req.php">General Requirement</a></li>
+                <li><a href="manage-all-req.php">Manage all Requirement</a></li>
+              </ul>
+            </li>
+            <li class="menu-header">Reports & Others</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="file"></i><span>University Reports</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="individual-report.php">Individual Report</a></li>
+                <li><a href="general-report.php">General Report</a></li>
+              </ul>
+            </li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="anchor"></i><span>Other
                   Pages</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="create-post.php">Create Post</a></li>
-                <li><a class="nav-link" href="posts.php">Posts</a></li>
-                <li><a class="nav-link" href="contact.php">Contact</a></li>
-                <li><a class="nav-link" href="invoice.php">Invoice</a></li>
+                <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
+                <li><a class="nav-link" href="comments.php">Comments</a></li>
               </ul>
             </li>
           </ul>
@@ -310,7 +337,7 @@ else{
                       <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15">COMPOSE</button>
                       <ul class="" id="mail-folders">
                         <li>
-                          <a href="mail-inbox.html" title="Inbox">Inbox (10)
+                          <a href="inbox.php" title="Inbox">Inbox (10)
                           </a>
                         </li>
                         <li>
@@ -371,89 +398,18 @@ else{
                           <hr>
                           <div class="media">
                             <a href="#" class="table-img m-r-15">
-                              <img alt="image" src="assets/img/users/user-2.png" class="rounded-circle" width="35"
+                              <img alt="image" src="assets/img/users/user-1.png" class="rounded-circle" width="35"
                                 data-toggle="tooltip" title="Sachin Pandit">
                             </a>
                             <div class="media-body">
-                              <span class="date pull-right">4:15AM 04 April 2017</span>
-                              <h5 class="text-primary">Sarah Smith</h5>
-                              <small class="text-muted">From: sarah@example.com</small>
+                              <span class="date pull-right"><?php echo $created_at;?></span>
+                              <h5 class="text-primary"><?php echo $user_name;?></h5>
+                              <small class="text-muted">From: <?php echo $user_email;?></small>
                             </div>
                           </div>
                         </div>
                         <div class="view-mail p-t-20">
-                          <p>Donec ultrices faucibus rutrum. Phasellus sodales vulputate urna, vel
-                            accumsan augue
-                            egestas ac. Donec vitae leo at sem lobortis porttitor eu consequat risus.
-                            Mauris
-                            sed congue orci. Donec ultrices faucibus rutrum. Phasellus sodales
-                            vulputate urna,
-                            vel accumsan augue egestas ac. Donec vitae leo at sem lobortis porttitor eu
-                            consequat
-                            risus. Mauris sed congue orci. Donec ultrices faucibus rutrum. Phasellus
-                            sodales
-                            vulputate urna, vel accumsan augue egestas ac. Donec vitae leo at sem
-                            lobortis porttitor
-                            eu consequat risus. Mauris sed congue orci.</p>
-                          <p>
-                            Porttitor eu consequat risus.
-                            <a href="#">Mauris sed congue orci. Donec ultrices faucibus rutrum</a>.
-                            Phasellus sodales vulputate
-                            urna, vel accumsan augue egestas ac. Donec vitae leo at sem lobortis
-                            porttitor eu
-                            consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.
-                            Phasellus
-                            sodales vulputate urna, vel accumsan augue egestas ac. Donec vitae leo at
-                            sem lobortis
-                            porttitor eu consequat risus. Mauris sed congue orci.
-                          </p>
-                          <p>
-                            Sodales
-                            <a href="#">vulputate urna, vel accumsan augue egestas ac</a>. Donec vitae
-                            leo at sem lobortis
-                            porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices
-                            faucibus rutrum.
-                            Phasellus sodales vulputate urna, vel accumsan augue egestas ac. Donec
-                            vitae leo
-                            at sem lobortis porttitor eu consequat risus. Mauris sed congue orci.
-                          </p>
-                        </div>
-                        <div class="attachment-mail">
-                          <p>
-                            <span>
-                              <i class="fa fa-paperclip"></i> 3 attachments — </span>
-                            <a href="#">Download all attachments</a> |
-                            <a href="#">View all images</a>
-                          </p>
-                          <div class="row">
-                            <div class="col-md-2">
-                              <a href="#">
-                                <img class="img-thumbnail img-responsive" alt="attachment"
-                                  src="assets/img/users/user-1.png">
-                              </a>
-                              <a class="name" href="#"> IMG_001.png
-                                <span>20KB</span>
-                              </a>
-                            </div>
-                            <div class="col-md-2">
-                              <a href="#">
-                                <img class="img-thumbnail img-responsive" alt="attachment"
-                                  src="assets/img/users/user-3.png">
-                              </a>
-                              <a class="name" href="#"> IMG_002.png
-                                <span>22KB</span>
-                              </a>
-                            </div>
-                            <div class="col-md-2">
-                              <a href="#">
-                                <img class="img-thumbnail img-responsive" alt="attachment"
-                                  src="assets/img/users/user-4.png">
-                              </a>
-                              <a class="name" href="#"> IMG_003.png
-                                <span>28KB</span>
-                              </a>
-                            </div>
-                          </div>
+                          <p><?php echo $msg;?></p>
                         </div>
                         <div class="replyBox m-t-20">
                           <p class="p-b-20">click here to

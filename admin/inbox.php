@@ -194,7 +194,7 @@ else{
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="dashboard.php"> <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">UIMS</span>
+                class="logo-name">UIS</span>
             </a>
           </div>
           <div class="sidebar-user">
@@ -222,7 +222,8 @@ else{
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="inbox.php">Inbox</a></li>
                 <li><a class="nav-link" href="compose.php">Compose</a></li>
-                <li><a class="nav-link" href="read.php">read</a></li>
+                <li><a class="nav-link" href="read.php">Read</a></li>
+                <li><a class="nav-link" href="chat.php">Chat</a></li>
               </ul>
             </li>
               <li class="dropdown">
@@ -285,14 +286,31 @@ else{
                 <li><a href="manage-pro.php">Manage Programme</a></li>
               </ul>
             </li>
+              <li class="menu-header">Requirement To Join</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="image"></i><span>Requirements</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="add-req.php">Add Requirement</a></li>
+                <li><a href="upload-req.php">Upload Requirement</a></li>
+                <li><a href="manage-req.php">Manage Requirement</a></li>
+                <li><a href="add-general-req.php">General Requirement</a></li>
+                <li><a href="manage-all-req.php">Manage all Requirement</a></li>
+              </ul>
+            </li>
+            <li class="menu-header">Reports & Others</li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i data-feather="file"></i><span>University Reports</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="individual-report.php">Individual Report</a></li>
+                <li><a href="general-report.php">General Report</a></li>
+              </ul>
+            </li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i data-feather="anchor"></i><span>Other
                   Pages</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="create-post.php">Create Post</a></li>
-                <li><a class="nav-link" href="posts.php">Posts</a></li>
-                <li><a class="nav-link" href="contact.php">Contact</a></li>
-                <li><a class="nav-link" href="invoice.php">Invoice</a></li>
+                <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
+                <li><a class="nav-link" href="comments.php">Comments</a></li>
               </ul>
             </li>
           </ul>
@@ -310,7 +328,7 @@ else{
                       <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15">COMPOSE</button>
                       <ul class="" id="mail-folders">
                         <li class="active">
-                          <a href="mail-inbox.html" title="Inbox">Inbox (10)
+                          <a href="inbox.php" title="Inbox">Inbox (10)
                           </a>
                         </li>
                         <li>
@@ -420,249 +438,42 @@ else{
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="unread">
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
+                          <?php
+                         require_once('dbconnection.php');
+                         $sms = "SELECT * FROM contactus ORDER BY created_at DESC";
+                         $run_sms = mysql_query($sms);
+                         while ($rows = mysql_fetch_array($run_sms)) {
+                           $user_id = $rows['id'];
+                           $user_name = $rows['name'];
+                           $user_email = $rows['email'];
+                           $msg = $rows['msg'];
+                           $created_at = $rows['created_at'];
+                           $hide = base64_encode($user_id);
+
+                           echo"<tr class='unread'>
+                            <td class='tbl-checkbox'>
+                              <label class='form-check-label'>
+                                <input type='checkbox'>
+                                <span class='form-check-sign'></span>
                               </label>
                             </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
+                            <td class='hidden-xs'>
+                              <i class='material-icons'>star_border</i>
                             </td>
-                            <td class="hidden-xs">Nelson Lane</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                <span class="badge badge-primary">Work</span>
-                                Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            <td class='hidden-xs'>$user_name</td>
+                            <td class='max-texts'>
+                              <a href='read.php?xxx=$hide'>
+                                <span class='badge badge-primary'>Work</span>
+                                $msg</a>
                             </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
+                            <td class='hidden-xs'>
+                              <i class='material-icons'>attach_file</i>
                             </td>
-                            <td class="text-right"> 12:30 PM </td>
-                          </tr>
-                          <tr class="unread">
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons text-warning">star</i>
-                            </td>
-                            <td class="hidden-xs">Kerry Mann</td>
-                            <td class="max-texts">
-                              <a href="#">Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 13 </td>
-                          </tr>
-                          <tr class="unread">
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
-                            </td>
-                            <td class="hidden-xs">Adam Peters</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                <span class="badge badge-secondary">Shopping</span>
-                                Lorem ipsum perspiciatis unde omnis</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 12 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
-                            </td>
-                            <td class="hidden-xs">Lula Reese</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                <span class="badge badge-success">Family</span>
-                                Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 12 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
-                            </td>
-                            <td class="hidden-xs">Nelson Lane</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 12 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons text-warning">star</i>
-                            </td>
-                            <td class="hidden-xs">Kerry Mann</td>
-                            <td class="max-texts">
-                              <a href="#">Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 11 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
-                            </td>
-                            <td class="hidden-xs">Adam Peters</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                <span class="badge badge-info">Office</span>
-                                Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 11 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
-                            </td>
-                            <td class="hidden-xs">Lula Reese</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 11 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
-                            </td>
-                            <td class="hidden-xs">Nelson Lane</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                <span class="badge badge-danger">Work</span>
-                                Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 10 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons text-warning">star</i>
-                            </td>
-                            <td class="hidden-xs">Kerry Mann</td>
-                            <td class="max-texts">
-                              <a href="#">Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 10 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
-                            </td>
-                            <td class="hidden-xs">Adam Peters</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                <span class="badge badge-secondary">Shopping</span>
-                                Lorem ipsum perspiciatis unde omnis</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 10 </td>
-                          </tr>
-                          <tr>
-                            <td class="tbl-checkbox">
-                              <label class="form-check-label">
-                                <input type="checkbox">
-                                <span class="form-check-sign"></span>
-                              </label>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">star_border</i>
-                            </td>
-                            <td class="hidden-xs">Lula Reese</td>
-                            <td class="max-texts">
-                              <a href="#">
-                                Lorem ipsum perspiciatis unde omnis iste natus</a>
-                            </td>
-                            <td class="hidden-xs">
-                              <i class="material-icons">attach_file</i>
-                            </td>
-                            <td class="text-right"> May 09 </td>
-                          </tr>
+                            <td class='text-right'> $created_at </td>
+                          </tr>";
+                         }
+
+                          ?>
                         </tbody>
                       </table>
                     </div>
