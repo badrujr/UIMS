@@ -176,6 +176,16 @@ if (isset($_POST['contact'])) {
   $email = mysql_escape_string(trim(strip_tags($_POST['email'])));
   $msg = mysql_escape_string(trim(strip_tags($_POST['msg'])));
 
+  $checkemail = "SELECT * FROM contactus WHERE email = '$email'";
+  $run_check = mysql_query($checkemail);
+  $num = mysql_num_rows($run_check);
+
+  if ($num == 1) {
+    $error_email = "<div class = 'alert alert-danger'> We are sorry $name, The email you provide for us has been used by another user</div>";
+  }
+
+  else{
+
   $sql = "INSERT INTO contactus (name,email,msg) VALUE ('$name','$email','$msg')";
   $run = mysql_query($sql);
 
@@ -188,6 +198,9 @@ if (isset($_POST['contact'])) {
     $error = "<div class = 'alert alert-danger'>Denied! Something is wrong.</div>";
 
   }
+
+  }
+
 }
 
 ?>
@@ -252,7 +265,7 @@ if (isset($_POST['contact'])) {
                         <label>Message</label>
                         <textarea class="form-control" placeholder="Type your message" data-height="150" name="msg" required=""></textarea>
                       </div>
-                      <?php echo $sms; echo $error;?>
+                      <?php echo $sms; echo $error; echo $error_email;?>
                       <div class="form-group text-right">
                         <button type="submit" class="btn btn-round btn-lg btn-primary" name="contact">
                           Send Message
