@@ -180,7 +180,7 @@ if (isset($_POST['contact'])) {
   $run = mysql_query($sql);
 
   if ($run) {
-    $sms = "<div class = 'alert alert-success'>Received! Thank You For Your message, Enjoy uims.</div>";
+    $sms = "<div class = 'alert alert-success'>Received! Thank You $name For Your message, Enjoy uims.</div>";
     header('Refresh:3; URL=index.php');
   }
 
@@ -234,7 +234,7 @@ if (isset($_POST['contact'])) {
                               <i class="far fa-user"></i>
                             </div>
                           </div>
-                          <input id="name" type="text" class="form-control" name="name" autofocus placeholder="Name">
+                          <input id="name" type="text" class="form-control" name="name" autofocus placeholder="Name" autocomplete="off" required="">
                         </div>
                       </div>
                       <div class="form-group floating-addon">
@@ -245,12 +245,12 @@ if (isset($_POST['contact'])) {
                               <i class="fas fa-envelope"></i>
                             </div>
                           </div>
-                          <input id="email" type="email" class="form-control" name="email" placeholder="Email">
+                          <input id="email" type="email" class="form-control" name="email" placeholder="Email" autocomplete="off" required="">
                         </div>
                       </div>
                       <div class="form-group">
                         <label>Message</label>
-                        <textarea class="form-control" placeholder="Type your message" data-height="150" name="msg"></textarea>
+                        <textarea class="form-control" placeholder="Type your message" data-height="150" name="msg" required=""></textarea>
                       </div>
                       <?php echo $sms; echo $error;?>
                       <div class="form-group text-right">
