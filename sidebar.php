@@ -78,6 +78,12 @@ $countpro = mysql_num_rows($runpro);
                <?php 
                echo "<a href='pro.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>Programme ($countpro)</span></a>" ;?>
             </li>
+            <li class="menu-header">General Requirements</li>
+            <li class="dropdown">
+               <?php 
+               echo 
+               "<a href='all-requirement.php?xxx=$hide' class='nav-link'><i data-feather='copy'></i><span>General Requirement</span></a>" ;?>
+            </li>
           </ul>
         </aside>
       </div>
