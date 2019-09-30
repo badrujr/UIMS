@@ -205,7 +205,7 @@ class UserInfo{
             <div class="page-description"> 
               <p style="font-size: 18px; color: maroon; font-family: Comic Sans MS;">This Search Engine Will Help You To Get More Information About The Particular University/Institute/College...</p>
                <div class="sidebar-user-details">
-              <div class="user-name"><img src='admin/assets/img/source.gif' style='height: 110px; width: 100px;' class="user-img-radious-style"></div>
+              <div class="user-name"><img src='admin/assets/img/finding-signatures.gif' style='height: 110px; width: 100px;' class="user-img-radious-style"></div>
             </div>
             </div>
             <div class="page-search">
