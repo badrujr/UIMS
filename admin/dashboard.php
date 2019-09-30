@@ -319,7 +319,6 @@ else{
                   Pages</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
-                <li><a class="nav-link" href="comments.php">Comments</a></li>
               </ul>
             </li>
           </ul>

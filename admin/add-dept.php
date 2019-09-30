@@ -84,6 +84,7 @@ if (isset($_POST['dept'])) {
   <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
 </head>
 
+
 <body>
   <div class="loader"></div>
   <div id="app">
@@ -361,7 +362,6 @@ if (isset($_POST['dept'])) {
                   Pages</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="OnlineVisiters.php">Online Visitors</a></li>
-                <li><a class="nav-link" href="comments.php">Comments</a></li>
               </ul>
             </li>
           </ul>
