@@ -37,6 +37,7 @@ else{
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/bundles/fullcalendar/fullcalendar.min.css">
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
@@ -436,237 +437,19 @@ else{
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-sm-12 col-lg-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4>Project Details</h4>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive table-invoice">
-                    <table class="table table-striped">
-                      <tr>
-                        <th class="text-center">#</th>
-                        <th>Project Name</th>
-                        <th>Customer</th>
-                        <th>Team</th>
-                        <th>Progress</th>
-                        <th>Start Date</th>
-                        <th>Delivery Date</th>
-                        <th>Action</th>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-1"> <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Ecommerce website</a></td>
-                        <td class="font-weight-600">Sarah Smith</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0 m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-8.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-9.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-10.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+4</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="30%">
-                            <div class="progress-bar bg-orange" data-width="30"></div>
-                          </div>
-                        </td>
-                        <td>July 19, 2018</td>
-                        <td>March 25, 2019</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-2"> <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Android App</a></td>
-                        <td class="font-weight-600">Airi Satou</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0 m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-3.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-7.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+2</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="55%">
-                            <div class="progress-bar bg-purple" data-width="55"></div>
-                          </div>
-                        </td>
-                        <td>March 21, 2015</td>
-                        <td>July 22, 2017</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-3"> <label for="checkbox-3" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Logo Design</a></td>
-                        <td class="font-weight-600">Ashton Cox</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0 m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-1.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-5.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-9.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+5</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="55%">
-                            <div class="progress-bar bg-green" data-width="55"></div>
-                          </div>
-                        </td>
-                        <td>Feb 02, 2018</td>
-                        <td>March 12, 2019</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-4"> <label for="checkbox-4" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Java Project</a></td>
-                        <td class="font-weight-600">Cara Stevens</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-4.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-7.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-10.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-2.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+1</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="30%">
-                            <div class="progress-bar bg-orange" data-width="30"></div>
-                          </div>
-                        </td>
-                        <td>July 19, 2018</td>
-                        <td>March 25, 2019</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-5"> <label for="checkbox-5" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Ecommerce website</a></td>
-                        <td class="font-weight-600">John Doe</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-8.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-4.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="John Deo"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-3.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+2</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="80%">
-                            <div class="progress-bar bg-green" data-width="80"></div>
-                          </div>
-                        </td>
-                        <td>May 11, 2017</td>
-                        <td>March 15, 2018</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                      <tr>
-                        <td class="p-0 text-center">
-                          <div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
-                              id="checkbox-6"> <label for="checkbox-6" class="custom-control-label">&nbsp;</label>
-                          </div>
-                        </td>
-                        <td><a href="#">Android App</a></td>
-                        <td class="font-weight-600">Angelica Ramos</td>
-                        <td class="text-truncate">
-                          <ul class="list-unstyled order-list m-b-0">
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-3.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Wildan Ahdian"></li>
-                            <li class="team-member team-member-sm"><img class="rounded-circle"
-                                src="assets/img/users/user-1.png" alt="user" data-toggle="tooltip" title=""
-                                data-original-title="Sarah Smith"></li>
-                            <li class="avatar avatar-sm"><span class="badge badge-primary">+2</span></li>
-                          </ul>
-                        </td>
-                        <td class="align-middle">
-                          <div class="progress" data-height="4" data-toggle="tooltip" title="56%">
-                            <div class="progress-bar bg-purple" data-width="56"></div>
-                          </div>
-                        </td>
-                        <td>June 02, 2018</td>
-                        <td>April 05, 2019</td>
-                        <td><a class="btn btn-action bg-purple mr-1" data-toggle="tooltip" title="Edit"><i
-                              class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger btn-action"
-                            data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you
-															want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a></td>
-                      </tr>
-                    </table>
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Calendar</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="fc-overflow">
+                      <div id="myEvent"></div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
         
         </section>
         <div class="settingSidebar">
@@ -793,6 +576,9 @@ else{
   <!-- JS Libraies -->
   <script src="assets/bundles/echart/echarts.js"></script>
   <script src="assets/bundles/chartjs/chart.min.js"></script>
+   <script src="assets/bundles/fullcalendar/fullcalendar.min.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="assets/js/page/calendar.js"></script>
   <!-- Page Specific JS File -->
   <script src="assets/js/page/index.js"></script>
   <!-- Template JS File -->
