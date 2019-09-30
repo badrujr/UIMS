@@ -201,11 +201,11 @@ class UserInfo{
       <div class="container mt-5">
         <div class="page-error">
           <div class="page-inner">
-            <h4><img src="admin/assets/img/tan.gif" style="height: 30px; width: 50px;" class="rounded-circle">University Infromation Management System (UIMS)</h4>
+            <h4 style="font-family: Comic Sans MS;"><img src="admin/assets/img/tan.gif" style="height: 30px; width: 50px;" class="rounded-circle">University Infromation Management System (UIMS)</h4>
             <div class="page-description"> 
               <p style="font-size: 18px; color: maroon; font-family: Comic Sans MS;">This Search Engine Will Help You To Get More Information About The Particular University/Institute/College...</p>
                <div class="sidebar-user-details">
-              <div class="user-name"><img src='admin/assets/img/4042.gif' style='height: 110px; width: 100px;' class="user-img-radious-style"></div>
+              <div class="user-name"><img src='admin/assets/img/source.gif' style='height: 110px; width: 100px;' class="user-img-radious-style"></div>
             </div>
             </div>
             <div class="page-search">
