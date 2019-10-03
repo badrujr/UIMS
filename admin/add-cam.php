@@ -21,7 +21,18 @@ if (isset($_POST['save'])) {
   $uname = mysql_escape_string(trim(strip_tags($_POST['uname'])));
   $created_at = date('Y/m/d H:i:s');
 
-  if ($uname == "--select--") {
+  $check_uni = "SELECT * FROM campus WHERE name = '$cname'";
+  $run_check = mysql_query($check_uni);
+  $count = mysql_num_rows($run_check);
+
+  if ($count == 1) {
+    # code...
+     $error_check = "<div class='alert alert-danger alert-has-icon'>
+                         We Already have that $cname information/profile, please go to manage campus and proceed with other details ...
+                         </div>";
+  }
+
+  else if ($uname == "--select--") {
       $error2 = "<div class='alert alert-danger alert-has-icon'>
                          Please select any University/institute/college, because $uname is not allowed...
                          </div>";
@@ -371,7 +382,7 @@ if (isset($_POST['save'])) {
                     <h4>Add Campus</h4>
                   </div>
                   <div class="card-body">
-                    <?php echo $msg; echo $error;?>
+                    <?php echo $msg; echo $error; echo $error_check;?>
                     <form method="POST" action="">
                       <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Campus Name:</label>

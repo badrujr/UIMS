@@ -21,7 +21,18 @@ if (isset($_POST['dept'])) {
   $dname = mysql_escape_string(trim(strip_tags($_POST['dname'])));
   $created_at = date('Y/m/d H:i:s');
 
-  if ($cname == "--select--") {
+   $check_uni = "SELECT * FROM department WHERE d_name = '$dname'";
+  $run_check = mysql_query($check_uni);
+  $count = mysql_num_rows($run_check);
+
+  if ($count == 1) {
+    # code...
+     $error_check = "<div class='alert alert-danger alert-has-icon'>
+                         We Already have that $dname information/profile, please go to manage department and proceed with other details ...
+                         </div>";
+  }
+
+  else if ($cname == "--select--") {
       $error2 = "<div class='alert alert-danger alert-has-icon'>
                          Please select any campus available, because $cname is not allowed...
                          </div>";
@@ -378,7 +389,7 @@ if (isset($_POST['dept'])) {
                     <h4>Add Department</h4>
                   </div>
                   <div class="card-body">
-                    <?php echo $msg; echo $error;?>
+                    <?php echo $msg; echo $error; echo $error_check;?>
                     <form method="POST" action="">
                       <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">University Name:</label>

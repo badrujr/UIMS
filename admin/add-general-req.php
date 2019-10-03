@@ -20,6 +20,17 @@ if (isset($_POST['requi'])) {
   $req = mysql_escape_string($_POST['all-req']);
   $created_at = date('Y/m/d H:i:s');
 
+     $check_uni = "SELECT * FROM gen_requirement WHERE content = '$req'";
+  $run_check = mysql_query($check_uni);
+  $count = mysql_num_rows($run_check);
+
+  if ($count == 1) {
+    # code...
+     $error_check = "<div class='alert alert-danger alert-has-icon'>
+                         We Already have that $req information/profile, please go to manage department and proceed with other details ...
+                         </div>";
+  }
+
    if ($un_id == '--select--') {
      $error1 = "<div class='alert alert-danger alert-has-icon'>
                          Please select any university/institution/college because $un_id is not allowed..
@@ -373,7 +384,7 @@ if (isset($_POST['requi'])) {
                     <h4>Add General Requirements For All Programmes</h4>
                   </div>
                   <div class="card-body">
-                    <?php echo $msg; echo $error; echo $error1;?>
+                    <?php echo $msg; echo $error; echo $error1; echo $error_check;?>
                     <form method="POST" action="">
                       <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">University Name:</label>
